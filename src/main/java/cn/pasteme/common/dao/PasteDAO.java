@@ -30,4 +30,11 @@ public interface PasteDAO {
      * @return 删除成功或失败
      */
     Boolean erase(String id);
+
+    /**
+     * 查询数据库中 id 的状态
+     * @param id 主键
+     * @return 0: 不存在, 1: 存在, -1: 存在但被删除
+     */
+    Integer status(String id);
 }
