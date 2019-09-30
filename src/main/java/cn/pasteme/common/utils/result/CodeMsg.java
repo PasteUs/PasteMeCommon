@@ -3,8 +3,7 @@ package cn.pasteme.common.utils.result;
 import lombok.Getter;
 
 /**
- * @Author: 白振宇
- * @Date： 2019/9/30 0:17
+ * Created by 白振宇 on 2019/9/30 0:17
  */
 @Getter
 public class CodeMsg {

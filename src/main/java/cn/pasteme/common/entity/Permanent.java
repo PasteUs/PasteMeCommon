@@ -5,8 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @Author: 白振宇
- * @Date： 2019/9/30 0:47
+ * Created by 白振宇 on 2019/9/30 0:47
  */
 @Data
 public class Permanent {

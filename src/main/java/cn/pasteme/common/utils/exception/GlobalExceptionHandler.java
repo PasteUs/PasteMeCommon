@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @Author: 白振宇
- * @Date： 2019/9/29 21:40
+ * Created by 白振宇 on 2019/9/29 21:40
  */
 @ControllerAdvice
 @ResponseBody

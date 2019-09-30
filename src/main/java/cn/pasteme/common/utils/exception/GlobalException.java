@@ -5,8 +5,7 @@ import lombok.Getter;
 
 
 /**
- * @Author: 白振宇
- * @Date： 2019/9/29 22:14
+ * Created by 白振宇 on 2019/9/29 22:14
  */
 @Getter
 public class GlobalException extends RuntimeException {

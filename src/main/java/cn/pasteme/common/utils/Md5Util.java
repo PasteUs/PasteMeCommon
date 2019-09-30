@@ -4,8 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 /**
- * @Author: 白振宇
- * @Date： 2019/9/30 15:35
+ * Created by 白振宇 on 2019/9/30 15:35
  */
 public class Md5Util {
     public static String getMD5Str(String str) throws Exception {
