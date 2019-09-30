@@ -20,10 +20,10 @@ import java.util.List;
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     Result<String> exceptionHandler(HttpServletRequest request, Exception e) {
-        if(e instanceof GlobalException) {
-            GlobalException ge = (GlobalException)e;
+        if (e instanceof GlobalException) {
+            GlobalException ge = (GlobalException) e;
             return Result.error(ge.getCm());
-        } else if(e instanceof org.springframework.validation.BindException) {
+        } else if (e instanceof org.springframework.validation.BindException) {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);
             String msg = error.getDefaultMessage();

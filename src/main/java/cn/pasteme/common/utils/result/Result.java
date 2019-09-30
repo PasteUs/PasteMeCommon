@@ -14,8 +14,9 @@ public class Result<T> {
 
     /**
      * 成功时返回信息
+     *
      * @param data 数据
-     * @param <T> 泛型
+     * @param <T>  泛型
      * @return 成功结果
      */
     public static <T> Result<T> success(T data) {
@@ -24,8 +25,9 @@ public class Result<T> {
 
     /**
      * 失败是返回信息
+     *
      * @param codeMsg 错误代码
-     * @param <T> 泛型
+     * @param <T>     泛型
      * @return 错误代码
      */
     public static <T> Result<T> error(CodeMsg codeMsg) {
@@ -40,7 +42,7 @@ public class Result<T> {
 
 
     private Result(CodeMsg codeMsg) {
-        if(codeMsg==null) {
+        if (codeMsg == null) {
             return;
         }
         this.code = codeMsg.getCode();

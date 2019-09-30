@@ -34,7 +34,7 @@ public class DemoManager {
             permanent.filter(p -> {
                 boolean flag = false;
                 try {
-                    flag = p.getPassword()==null || p.getPassword().isEmpty() || (tokenDTO.getPwd()!=null && !tokenDTO.getPwd().isEmpty() && Md5Util.getMD5Str(tokenDTO.getPwd()).equals(p.getPassword()));
+                    flag = p.getPassword() == null || p.getPassword().isEmpty() || (tokenDTO.getPwd() != null && !tokenDTO.getPwd().isEmpty() && Md5Util.getMD5Str(tokenDTO.getPwd()).equals(p.getPassword()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
