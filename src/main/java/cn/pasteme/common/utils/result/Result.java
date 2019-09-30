@@ -7,8 +7,14 @@ import lombok.Getter;
  */
 @Getter
 public class Result<T> {
+
+    // 返回值
     private int code;
-    private String msg;
+
+    // 返回信息
+    private String message;
+
+    // 返回数据
     private T data;
 
     /**
@@ -23,10 +29,10 @@ public class Result<T> {
     }
 
     /**
-     * 失败是返回信息
+     * 失败时返回信息
      *
      * @param codeMsg 错误代码
-     * @param <T>     泛型
+     * @param <T> 泛型
      * @return 错误代码
      */
     public static <T> Result<T> error(CodeMsg codeMsg) {
@@ -35,7 +41,7 @@ public class Result<T> {
 
     private Result(T data) {
         this.code = 0;
-        this.msg = "success";
+        this.message = "success";
         this.data = data;
     }
 
@@ -44,8 +50,9 @@ public class Result<T> {
         if (codeMsg == null) {
             return;
         }
+
         this.code = codeMsg.getCode();
-        this.msg = codeMsg.getMsg();
+        this.message = codeMsg.getMessage();
     }
 
     public Result() {

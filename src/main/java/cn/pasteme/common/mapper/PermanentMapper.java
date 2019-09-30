@@ -1,18 +1,17 @@
 package cn.pasteme.common.mapper;
 
-import cn.pasteme.common.entity.Permanent;
+import cn.pasteme.common.entity.PermanentPO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by 白振宇 on 2019/9/30 0:58
+ * Created by 白振宇 on 2019/9/30 00:58
  */
 @Mapper
 @Component
-public interface PermanentsMapper {
+public interface PermanentMapper {
 
     @Select("select * from `pasteme`.`permanents` where `key` = #{key} ")
-    Permanent getByKeyPermanent(Long key);
+    PermanentPO getByKeyPermanent(Long key);
 }

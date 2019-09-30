@@ -1,10 +1,10 @@
 package cn.pasteme.common.manager;
 
 import cn.pasteme.common.dto.TokenDTO;
-import cn.pasteme.common.entity.Permanent;
-import cn.pasteme.common.entity.Temporary;
-import cn.pasteme.common.mapper.PermanentsMapper;
-import cn.pasteme.common.mapper.TemporariesMapper;
+import cn.pasteme.common.entity.PermanentPO;
+import cn.pasteme.common.entity.TemporaryPO;
+import cn.pasteme.common.mapper.PermanentMapper;
+import cn.pasteme.common.mapper.TemporaryMapper;
 import cn.pasteme.common.utils.Md5Util;
 import cn.pasteme.common.vo.ContentVO;
 import org.springframework.beans.BeanUtils;
@@ -17,19 +17,19 @@ import java.util.Optional;
  */
 @Service
 public class DemoManager {
-    private final PermanentsMapper permanentsMapper;
-    private final TemporariesMapper temporariesMapper;
+    private final PermanentMapper permanentMapper;
+    private final TemporaryMapper temporaryMapper;
 
-    public DemoManager(PermanentsMapper permanentsMapper, TemporariesMapper temporariesMapper) {
-        this.permanentsMapper = permanentsMapper;
-        this.temporariesMapper = temporariesMapper;
+    public DemoManager(PermanentMapper permanentMapper, TemporaryMapper temporaryMapper) {
+        this.permanentMapper = permanentMapper;
+        this.temporaryMapper = temporaryMapper;
     }
 
     public ContentVO getContentByKey(TokenDTO tokenDTO) {
         ContentVO contentVO = new ContentVO();
         try {
             long key = Long.valueOf(tokenDTO.getKey());
-            Optional<Permanent> permanent = Optional.ofNullable(permanentsMapper.getByKeyPermanent(key));
+            Optional<PermanentPO> permanent = Optional.ofNullable(permanentMapper.getByKeyPermanent(key));
             permanent.filter(p -> {
                 boolean flag = false;
                 try {
@@ -43,7 +43,7 @@ public class DemoManager {
                 contentVO.setKey(tokenDTO.getKey());
             });
         } catch (NumberFormatException e) {
-            Optional<Temporary> temporary = Optional.ofNullable(temporariesMapper.getByKeyTemporary(tokenDTO.getKey()));
+            Optional<TemporaryPO> temporary = Optional.ofNullable(temporaryMapper.getByKeyTemporary(tokenDTO.getKey()));
             temporary.ifPresent(t -> BeanUtils.copyProperties(temporary, contentVO));
         }
         return contentVO;

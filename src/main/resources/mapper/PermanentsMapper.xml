@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.pasteme.common.mapper.PermanentsMapper">
+<mapper namespace="cn.pasteme.common.mapper.PermanentMapper">
 
-    <resultMap type="cn.pasteme.common.entity.Permanent" id="permanent">
+    <resultMap type="cn.pasteme.common.entity.PermanentPO" id="permanent">
         <result property="key" column="key"/>
         <result property="lang" column="long"/>
         <result property="content" column="content"/>

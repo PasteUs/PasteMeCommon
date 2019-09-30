@@ -1,6 +1,6 @@
 package cn.pasteme.common.mapper;
 
-import cn.pasteme.common.entity.Temporary;
+import cn.pasteme.common.entity.TemporaryPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  */
 @Mapper
 @Component
-public interface TemporariesMapper {
+public interface TemporaryMapper {
 
     @Select("select * from `pasteme`.`temporaries` where `key` = #{key}")
-    Temporary getByKeyTemporary(String key);
+    TemporaryPO getByKeyTemporary(String key);
 }

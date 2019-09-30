@@ -3,7 +3,7 @@ package cn.pasteme.common.dto;
 import lombok.Data;
 
 /**
- * Created by 白振宇 on 2019/9/30 0:37
+ * Created by 白振宇 on 2019/9/30 00:37
  */
 @Data
 public class TokenDTO {
