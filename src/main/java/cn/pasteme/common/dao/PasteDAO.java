@@ -3,7 +3,8 @@ package cn.pasteme.common.dao;
 import cn.pasteme.common.entity.PastePO;
 
 /**
- * Created by Lucien on 2019/10/01 02:02
+ * @author Lucien
+ * @date 2019/10/01 02:02
  *
  * PermanentDAO 和 TemporaryDAO 的上层接口
  */

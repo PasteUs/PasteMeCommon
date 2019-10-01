@@ -6,7 +6,8 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * Created by Lucien on 2019/10/01 02:11
+ * @author Lucien
+ * @date 2019/10/01 02:11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -5,7 +5,8 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * Created by Lucien on 2019/10/01 01:58
+ * @author Lucien
+ * @date 2019/10/01 01:58
  */
 @Data
 abstract class Paste {
