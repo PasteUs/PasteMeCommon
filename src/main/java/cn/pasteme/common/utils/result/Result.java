@@ -9,13 +9,19 @@ import lombok.Getter;
 @Getter
 public class Result<T> {
 
-    // 返回值
+    /**
+     * 返回值
+     */
     private int code;
 
-    // 返回信息
+    /**
+     * 返回信息
+     */
     private String message;
 
-    // 返回数据
+    /**
+     * 返回数据
+     */
     private T data;
 
     /**
@@ -32,12 +38,12 @@ public class Result<T> {
     /**
      * 失败时返回信息
      *
-     * @param codeMsg 错误代码
+     * @param codeMessage 错误代码
      * @param <T> 泛型
      * @return 错误代码
      */
-    public static <T> Result<T> error(CodeMsg codeMsg) {
-        return new Result<>(codeMsg);
+    public static <T> Result<T> error(CodeMessage codeMessage) {
+        return new Result<>(codeMessage);
     }
 
     private Result(T data) {
@@ -46,14 +52,13 @@ public class Result<T> {
         this.data = data;
     }
 
-
-    private Result(CodeMsg codeMsg) {
-        if (codeMsg == null) {
+    private Result(CodeMessage codeMessage) {
+        if (codeMessage == null) {
             return;
         }
 
-        this.code = codeMsg.getCode();
-        this.message = codeMsg.getMessage();
+        this.code = codeMessage.getCode();
+        this.message = codeMessage.getMessage();
     }
 
     public Result() {
@@ -63,16 +68,13 @@ public class Result<T> {
     /**
      * 以字符串形式输出
      *
-     * @return Result(code=${code},message=${message},data=${data})
+     * @return Result(code = ${code}, message = ${message}, data = ${data})
      */
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Result(");
-        builder.append("code=").append(code).append(",message=").append(message).append(",data=");
-        builder.append(null == data ? "null" : data.toString());
-        builder.append(")");
-        return builder.toString();
+        return "Result(" +
+                "code = " + code + ", message = " + message + ", data = " +
+                (null == data ? "null" : data.toString()) + ")";
     }
 }

@@ -1,6 +1,6 @@
 package cn.pasteme.common.utils.exception;
 
-import cn.pasteme.common.utils.result.CodeMsg;
+import cn.pasteme.common.utils.result.CodeMessage;
 import cn.pasteme.common.utils.result.Result;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -27,10 +27,10 @@ public class GlobalExceptionHandler {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);
             String msg = error.getDefaultMessage();
-            return Result.error(CodeMsg.BIND_ERROR.fillArgs(msg));
+            return Result.error(CodeMessage.BIND_ERROR.fillArgs(msg));
         } else {
             e.printStackTrace();
-            return Result.error(CodeMsg.SERVER_ERROR);
+            return Result.error(CodeMessage.SERVER_ERROR);
         }
     }
 }
