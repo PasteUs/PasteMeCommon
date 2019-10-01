@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import com.google.common.collect.Lists;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  * @date 2019/10/01 17:47
  */
 @Slf4j
+@Aspect
+@Component
 public class ServiceLoggingInterceptor {
     @Around("@annotation(logging)")
     public Object invoke(ProceedingJoinPoint proceedingJoinPoint, RequestLogging logging) throws Throwable {
