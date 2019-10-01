@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
  * @author 白振宇
  * @date 2019/9/30 00:58
  */
-@Mapper
-@Component
 public interface PermanentMapper {
 
     /**
