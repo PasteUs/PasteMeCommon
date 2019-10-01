@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 2019/10/01 01:58
  */
 @Data
-abstract class Paste {
+abstract class AbstractPaste {
 
     private String lang;
 
@@ -17,7 +17,7 @@ abstract class Paste {
 
     private String password;
 
-    private String clientIP;
+    private String clientIp;
 
     private Date createdAt;
 }

@@ -6,14 +6,12 @@ import lombok.EqualsAndHashCode;
 import java.util.Date;
 
 /**
- * @author 白振宇
- * @date 2019/9/30 00:47
+ * @author Lucien
+ * @date 2019/10/01 02:11
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PermanentPO extends Paste {
-
-    private Long key;
+public class abstractPasteDO extends TemporaryDO {
 
     private Date deletedAt;
 }

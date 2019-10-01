@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TemporaryPO extends Paste {
+public class TemporaryDO extends AbstractPaste {
 
     private String key;
 }

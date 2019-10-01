@@ -1,8 +1,8 @@
 package cn.pasteme.common.manager;
 
 import cn.pasteme.common.dto.TokenDTO;
-import cn.pasteme.common.entity.PermanentPO;
-import cn.pasteme.common.entity.TemporaryPO;
+import cn.pasteme.common.entity.PermanentDO;
+import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.mapper.PermanentMapper;
 import cn.pasteme.common.mapper.TemporaryMapper;
 import cn.pasteme.common.utils.Md5Util;
@@ -30,7 +30,7 @@ public class DemoManager {
         ContentVO contentVO = new ContentVO();
         try {
             long key = Long.valueOf(tokenDTO.getKey());
-            Optional<PermanentPO> permanent = Optional.ofNullable(permanentMapper.getByKeyPermanent(key));
+            Optional<PermanentDO> permanent = Optional.ofNullable(permanentMapper.getByKeyPermanent(key));
             permanent.filter(p -> {
                 boolean flag = false;
                 try {
@@ -44,7 +44,7 @@ public class DemoManager {
                 contentVO.setKey(tokenDTO.getKey());
             });
         } catch (NumberFormatException e) {
-            Optional<TemporaryPO> temporary = Optional.ofNullable(temporaryMapper.getByKeyTemporary(tokenDTO.getKey()));
+            Optional<TemporaryDO> temporary = Optional.ofNullable(temporaryMapper.getByKeyTemporary(tokenDTO.getKey()));
             temporary.ifPresent(t -> BeanUtils.copyProperties(temporary, contentVO));
         }
         return contentVO;
