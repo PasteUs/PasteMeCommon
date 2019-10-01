@@ -1,6 +1,6 @@
 package cn.pasteme.common.dao;
 
-import cn.pasteme.common.entity.abstractPasteDO;
+import cn.pasteme.common.entity.PasteDO;
 
 /**
  * @author Lucien
@@ -15,14 +15,14 @@ public interface PasteDAO {
      * @param pasteDO 持久 Paste
      * @return 数据库中 record 的主键
      */
-    String save(abstractPasteDO pasteDO);
+    String save(PasteDO pasteDO);
 
     /**
      * 从数据库中查询 record
      * @param key 主键
      * @return PastePO
      */
-    abstractPasteDO get(String key);
+    PasteDO get(String key);
 
     /**
      * 删除数据库中的 record
