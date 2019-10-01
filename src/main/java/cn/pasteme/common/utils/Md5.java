@@ -4,10 +4,11 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 
 /**
- * Created by 白振宇 on 2019/9/30 15:35
+ * @author 白振宇
+ * @date 2019/9/30 15:35
  */
-public class Md5Util {
-    public static String getMD5Str(String str) throws Exception {
+public class Md5 {
+    public static String getMd5Str(String str) throws Exception {
         try {
             // 生成一个MD5加密计算摘要
             MessageDigest md = MessageDigest.getInstance("MD5");
