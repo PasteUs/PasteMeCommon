@@ -5,7 +5,7 @@ import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.mapper.PermanentMapper;
 import cn.pasteme.common.mapper.TemporaryMapper;
-import cn.pasteme.common.utils.Md5Util;
+import cn.pasteme.common.utils.Md5;
 import cn.pasteme.common.vo.ContentVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class DemoManager {
             permanent.filter(p -> {
                 boolean flag = false;
                 try {
-                    flag = p.getPassword() == null || p.getPassword().isEmpty() || (tokenDTO.getPwd() != null && !tokenDTO.getPwd().isEmpty() && Md5Util.getMD5Str(tokenDTO.getPwd()).equals(p.getPassword()));
+                    flag = p.getPassword() == null || p.getPassword().isEmpty() || (tokenDTO.getPwd() != null && !tokenDTO.getPwd().isEmpty() && Md5.getMd5Str(tokenDTO.getPwd()).equals(p.getPassword()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
