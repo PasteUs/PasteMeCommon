@@ -59,4 +59,20 @@ public class Result<T> {
     public Result() {
 
     }
+
+    /**
+     * 以字符串形式输出
+     *
+     * @return Result(code=${code},message=${message},data=${data})
+     */
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Result(");
+        builder.append("code=").append(code).append(",message=").append(message).append(",data=");
+        builder.append(null == data ? "null" : data.toString());
+        builder.append(")");
+        return builder.toString();
+    }
 }
