@@ -1,17 +1,23 @@
 package cn.pasteme.common.mapper;
 
-import cn.pasteme.common.entity.Temporary;
+import cn.pasteme.common.entity.TemporaryDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by 白振宇 on 2019/9/30 00:58
+ * @author 白振宇
+ * @date 2019/9/30 00:58
  */
 @Mapper
 @Component
-public interface TemporariesMapper {
+public interface TemporaryMapper {
 
+    /**
+     * 根据 key 查询 DO
+     * @param key key
+     * @return TemporaryDO
+     */
     @Select("select * from `pasteme`.`temporaries` where `key` = #{key}")
-    Temporary getByKeyTemporary(String key);
+    TemporaryDO getByKeyTemporary(String key);
 }

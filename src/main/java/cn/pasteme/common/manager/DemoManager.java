@@ -1,11 +1,11 @@
 package cn.pasteme.common.manager;
 
 import cn.pasteme.common.dto.TokenDTO;
-import cn.pasteme.common.entity.Permanent;
-import cn.pasteme.common.entity.Temporary;
-import cn.pasteme.common.mapper.PermanentsMapper;
-import cn.pasteme.common.mapper.TemporariesMapper;
-import cn.pasteme.common.utils.Md5Util;
+import cn.pasteme.common.entity.PermanentDO;
+import cn.pasteme.common.entity.TemporaryDO;
+import cn.pasteme.common.mapper.PermanentMapper;
+import cn.pasteme.common.mapper.TemporaryMapper;
+import cn.pasteme.common.utils.Md5;
 import cn.pasteme.common.vo.ContentVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -13,27 +13,28 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Created by 白振宇 on 2019/9/30 19:32
+ * @author 白振宇
+ * @date 2019/9/30 19:32
  */
 @Service
 public class DemoManager {
-    private final PermanentsMapper permanentsMapper;
-    private final TemporariesMapper temporariesMapper;
+    private final PermanentMapper permanentMapper;
+    private final TemporaryMapper temporaryMapper;
 
-    public DemoManager(PermanentsMapper permanentsMapper, TemporariesMapper temporariesMapper) {
-        this.permanentsMapper = permanentsMapper;
-        this.temporariesMapper = temporariesMapper;
+    public DemoManager(PermanentMapper permanentMapper, TemporaryMapper temporaryMapper) {
+        this.permanentMapper = permanentMapper;
+        this.temporaryMapper = temporaryMapper;
     }
 
     public ContentVO getContentByKey(TokenDTO tokenDTO) {
         ContentVO contentVO = new ContentVO();
         try {
             long key = Long.valueOf(tokenDTO.getKey());
-            Optional<Permanent> permanent = Optional.ofNullable(permanentsMapper.getByKeyPermanent(key));
+            Optional<PermanentDO> permanent = Optional.ofNullable(permanentMapper.getByKeyPermanent(key));
             permanent.filter(p -> {
                 boolean flag = false;
                 try {
-                    flag = p.getPassword() == null || p.getPassword().isEmpty() || (tokenDTO.getPwd() != null && !tokenDTO.getPwd().isEmpty() && Md5Util.getMD5Str(tokenDTO.getPwd()).equals(p.getPassword()));
+                    flag = p.getPassword() == null || p.getPassword().isEmpty() || (tokenDTO.getPwd() != null && !tokenDTO.getPwd().isEmpty() && Md5.getMd5Str(tokenDTO.getPwd()).equals(p.getPassword()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -43,7 +44,7 @@ public class DemoManager {
                 contentVO.setKey(tokenDTO.getKey());
             });
         } catch (NumberFormatException e) {
-            Optional<Temporary> temporary = Optional.ofNullable(temporariesMapper.getByKeyTemporary(tokenDTO.getKey()));
+            Optional<TemporaryDO> temporary = Optional.ofNullable(temporaryMapper.getByKeyTemporary(tokenDTO.getKey()));
             temporary.ifPresent(t -> BeanUtils.copyProperties(temporary, contentVO));
         }
         return contentVO;
