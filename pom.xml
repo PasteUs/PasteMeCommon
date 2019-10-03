@@ -5,21 +5,12 @@
     <parent>
         <groupId>cn.pasteme</groupId>
         <artifactId>pasteme-root</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>pasteme-common</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>pasteme-common</name>
     <description>PasteMe Common</description>
-
-    <properties>
-        <github.global.server>github</github.global.server>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
 
     <dependencies>
 
@@ -35,48 +26,11 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.1</version>
-                <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version >0.12</version>
-                <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
-                    <noJekyll>true</noJekyll>
-                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory><!--本地jar地址-->
-                    <branch>refs/heads/master</branch><!--分支的名称-->
-                    <merge>true</merge>
-                    <includes>
-                        <include>**/*</include>
-                    </includes>
-                    <repositoryName>MavenRepository</repositoryName><!--对应github上创建的仓库名称 name-->
-                    <repositoryOwner>PasteUs</repositoryOwner><!--github 仓库所有者即登录用户名-->
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
     <repositories>
+        <repository>
+            <id>ali-repo</id>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+        </repository>
         <repository>
             <id>github-repo</id>
             <url>https://raw.githubusercontent.com/PasteUs/MavenRepository/master</url>
