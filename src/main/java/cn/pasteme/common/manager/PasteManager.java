@@ -1,6 +1,6 @@
 package cn.pasteme.common.manager;
 
-import cn.pasteme.common.dto.PasteDTO;
+import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PasteDO;
 
 /**
@@ -21,9 +21,9 @@ public interface PasteManager {
     /**
      * 从数据库中查询 record
      * @param key 主键
-     * @return PasteDTO
+     * @return PasteResponseDTO
      */
-    PasteDTO get(String key);
+    PasteResponseDTO get(String key);
 
     /**
      * 删除数据库中的 record

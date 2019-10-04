@@ -1,6 +1,6 @@
 package cn.pasteme.common.manager.impl;
 
-import cn.pasteme.common.dto.PasteDTO;
+import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PasteDO;
 import cn.pasteme.common.manager.PermanentManager;
 
@@ -16,7 +16,7 @@ public class PermanentManagerImpl implements PermanentManager {
     }
 
     @Override
-    public PasteDTO get(String key) {
+    public PasteResponseDTO get(String key) {
         //TODO
         return null;
     }

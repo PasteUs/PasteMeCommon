@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2019/10/01 02:07
  */
 @Data
-public class PasteDTO {
+public class PasteResponseDTO {
 
     private String key;
 
