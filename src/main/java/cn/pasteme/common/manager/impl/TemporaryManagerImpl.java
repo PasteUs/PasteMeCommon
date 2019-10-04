@@ -6,7 +6,7 @@ import cn.pasteme.common.manager.TemporaryManager;
 
 /**
  * @Author: 白振宇
- * @Date： 2019/10/4 11:37
+ * @Date: 2019/10/4 11:37
  */
 public class TemporaryManagerImpl implements TemporaryManager {
     @Override
