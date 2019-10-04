@@ -19,5 +19,4 @@ public class PasteDTO {
     @NotBlank
     private String content;
 
-    private String password;
 }

@@ -11,7 +11,9 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PasteDO extends TemporaryDO {
+public class PasteDO extends AbstractPaste {
+
+    private String key;
 
     private Date deletedAt;
 }
