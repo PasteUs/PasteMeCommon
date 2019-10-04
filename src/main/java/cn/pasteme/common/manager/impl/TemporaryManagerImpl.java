@@ -5,8 +5,8 @@ import cn.pasteme.common.entity.PasteDO;
 import cn.pasteme.common.manager.TemporaryManager;
 
 /**
- * @Author: 白振宇
- * @Date: 2019/10/4 11:37
+ * @author 白振宇
+ * @date 2019/10/4 11:37
  */
 public class TemporaryManagerImpl implements TemporaryManager {
     @Override
