@@ -1,5 +1,6 @@
 package cn.pasteme.common.manager;
 
+import cn.pasteme.common.dto.PasteRequestDTO;
 import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PasteDO;
 
@@ -12,11 +13,11 @@ import cn.pasteme.common.entity.PasteDO;
 public interface PasteManager {
 
     /**
-     * 将 PastePO 保存至数据库
-     * @param pasteDO 持久 Paste
+     * DTO 转 DO 递交持久化
+     * @param pasteRequestDTO 持久 Paste
      * @return 数据库中 record 的主键
      */
-    String save(PasteDO pasteDO);
+    String save(PasteRequestDTO pasteRequestDTO);
 
     /**
      * 从数据库中查询 record
