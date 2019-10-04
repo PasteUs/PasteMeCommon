@@ -19,5 +19,21 @@ public interface TemporaryMapper {
      * @return TemporaryDO
      */
     @Select("select * from `pasteme`.`temporaries` where `key` = #{key}")
-    TemporaryDO getByKeyTemporary(String key);
+    TemporaryDO getByKey(String key);
+
+    //TODO
+    /**
+     * 插入 temporaryDO 新记录
+     * @param temporaryDO 临时实体
+     * @return key 主键
+     */
+    String create(TemporaryDO temporaryDO);
+
+    //TODO
+    /**
+     * 根据 key 删除 记录
+     * @param key 主键
+     * @return 是否删除成功
+     */
+    Boolean eraseByKey(String key);
 }

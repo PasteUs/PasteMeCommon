@@ -1,14 +1,15 @@
-package cn.pasteme.common.dao;
+package cn.pasteme.common.manager;
 
+import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PasteDO;
 
 /**
  * @author Lucien
  * @date 2019/10/01 02:02
  *
- * PermanentDAO 和 TemporaryDAO 的上层接口
+ * PermanentManager 和 TemporaryManager 的上层接口
  */
-public interface PasteDAO {
+public interface PasteManager {
 
     /**
      * 将 PastePO 保存至数据库
@@ -20,9 +21,9 @@ public interface PasteDAO {
     /**
      * 从数据库中查询 record
      * @param key 主键
-     * @return PastePO
+     * @return PasteResponseDTO
      */
-    PasteDO get(String key);
+    PasteResponseDTO get(String key);
 
     /**
      * 删除数据库中的 record

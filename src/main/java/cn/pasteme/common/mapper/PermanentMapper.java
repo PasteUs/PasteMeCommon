@@ -19,5 +19,21 @@ public interface PermanentMapper {
      * @return PermanentDO
      */
     @Select("select * from `pasteme`.`permanents` where `key` = #{key} ")
-    PermanentDO getByKeyPermanent(Long key);
+    PermanentDO getByKey(Long key);
+
+    //TODO
+    /**
+     * 插入 permanentDO 新记录
+     * @param permanentDO 永久实体
+     * @return key 主键
+     */
+    Long create(PermanentDO permanentDO);
+
+    //TODO
+    /**
+     * 根据 key 删除 记录
+     * @param key 主键
+     * @return 是否删除成功
+     */
+    Boolean eraseByKey(Long key);
 }

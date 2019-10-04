@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2019/9/29 23:51
  */
 @Getter
-public class Result<T> {
+public class Response<T> {
 
     /**
      * 返回值
@@ -31,8 +31,8 @@ public class Result<T> {
      * @param <T>  泛型
      * @return 成功结果
      */
-    public static <T> Result<T> success(T data) {
-        return new Result<>(data);
+    public static <T> Response<T> success(T data) {
+        return new Response<>(data);
     }
 
     /**
@@ -42,17 +42,17 @@ public class Result<T> {
      * @param <T> 泛型
      * @return 错误代码
      */
-    public static <T> Result<T> error(CodeMessage codeMessage) {
-        return new Result<>(codeMessage);
+    public static <T> Response<T> error(CodeMessage codeMessage) {
+        return new Response<>(codeMessage);
     }
 
-    private Result(T data) {
+    private Response(T data) {
         this.code = 0;
         this.message = "success";
         this.data = data;
     }
 
-    private Result(CodeMessage codeMessage) {
+    private Response(CodeMessage codeMessage) {
         if (codeMessage == null) {
             return;
         }
@@ -61,19 +61,19 @@ public class Result<T> {
         this.message = codeMessage.getMessage();
     }
 
-    public Result() {
+    public Response() {
 
     }
 
     /**
      * 以字符串形式输出
      *
-     * @return Result(code = ${code}, message = ${message}, data = ${data})
+     * @return Response(code = ${code}, message = ${message}, data = ${data})
      */
 
     @Override
     public String toString() {
-        return "Result(" +
+        return "Response(" +
                 "code = " + code + ", message = " + message + ", data = " +
                 (null == data ? "null" : data.toString()) + ")";
     }
