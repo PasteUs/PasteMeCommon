@@ -11,8 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class PasteResponseDTO {
 
-    private String key;
-
     @NotBlank
     private String lang;
 
