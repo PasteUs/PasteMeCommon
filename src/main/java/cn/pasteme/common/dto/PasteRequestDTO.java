@@ -18,4 +18,13 @@ public class PasteRequestDTO extends PasteResponseDTO {
 
     private String password;
 
+    private String clientIp;
+
+    public PasteRequestDTO(String key, String password) {
+        this.key = key;
+        this.password = password;
+    }
+
+    public PasteRequestDTO() {}
+
 }
