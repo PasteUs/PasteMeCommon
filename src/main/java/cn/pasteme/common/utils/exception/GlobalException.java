@@ -1,6 +1,6 @@
 package cn.pasteme.common.utils.exception;
 
-import cn.pasteme.common.utils.result.CodeMsg;
+import cn.pasteme.common.utils.result.CodeMessage;
 import lombok.Getter;
 
 
@@ -11,9 +11,9 @@ import lombok.Getter;
 @Getter
 public class GlobalException extends RuntimeException {
 
-    private CodeMsg cm;
+    private CodeMessage cm;
 
-    public GlobalException(CodeMsg cm) {
+    public GlobalException(CodeMessage cm) {
         super(cm.toString());
         this.cm = cm;
     }

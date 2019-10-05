@@ -1,7 +1,7 @@
 package cn.pasteme.common.utils.exception;
 
-import cn.pasteme.common.utils.result.CodeMsg;
-import cn.pasteme.common.utils.result.Result;
+import cn.pasteme.common.utils.result.CodeMessage;
+import cn.pasteme.common.utils.result.Response;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,18 +19,18 @@ import java.util.List;
 @ResponseBody
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    Result<String> exceptionHandler(HttpServletRequest request, Exception e) {
+    Response<String> exceptionHandler(HttpServletRequest request, Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
-            return Result.error(ge.getCm());
+            return Response.error(ge.getCm());
         } else if (e instanceof org.springframework.validation.BindException) {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);
             String msg = error.getDefaultMessage();
-            return Result.error(CodeMsg.BIND_ERROR.fillArgs(msg));
+            return Response.error(CodeMessage.BIND_ERROR.fillArgs(msg));
         } else {
             e.printStackTrace();
-            return Result.error(CodeMsg.SERVER_ERROR);
+            return Response.error(CodeMessage.SERVER_ERROR);
         }
     }
 }
