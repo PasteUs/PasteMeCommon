@@ -1,12 +1,9 @@
-name: Maven Deploy
+name: Maven Package
 
-on:
-  push:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
-  deploy:
+  package:
 
     services:
       mysql:
@@ -28,10 +25,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Deploy to Github Package Registry
-        env:
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-          GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
+      - name: Maven package
         run: |
           echo -e "spring:\n  datasource:\n    url: jdbc:mysql://localhost:3306/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
-          mvn --settings settings.xml --file pom.xml deploy
+          mvn --file pom.xml package
