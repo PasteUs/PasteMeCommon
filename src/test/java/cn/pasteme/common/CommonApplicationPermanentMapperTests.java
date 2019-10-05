@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * @author Irene
+ * @date 2019/10/05 23:08
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommonApplicationPermanentMapperTests {

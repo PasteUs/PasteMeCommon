@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Lucien
- * @date 2019/10/5 01:05
+ * @date 2019/10/05 01:05
  */
 @SpringBootApplication
 public class CommonApplication {
