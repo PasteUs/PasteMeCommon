@@ -8,6 +8,18 @@ on:
 jobs:
   deploy:
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_USER: username
+          MYSQL_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: pasteme
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     runs-on: ubuntu-latest
 
     steps:
@@ -20,4 +32,6 @@ jobs:
         env:
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
-        run: mvn -DskipTests --settings settings.xml --file pom.xml deploy
+        run: |
+          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://localhost:3306/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
+          mvn --settings settings.xml --file pom.xml deploy
