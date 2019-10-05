@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 
 /**
  * @author 白振宇
- * @date 2019/9/30 15:35
+ * @date 2019/09/30 15:35
  */
 public class Md5 {
     public static String getMd5Str(String str) throws Exception {

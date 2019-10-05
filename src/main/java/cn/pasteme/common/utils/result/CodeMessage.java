@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @author 白振宇
- * @date 2019/9/30 00:17
+ * @date 2019/09/30 00:17
  */
 @Getter
 public class CodeMessage {
