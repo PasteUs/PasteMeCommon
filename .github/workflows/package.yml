@@ -14,7 +14,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: pasteme
         ports:
-          - 3306:3306
+          - 4399:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     runs-on: ubuntu-latest
@@ -27,5 +27,5 @@ jobs:
           java-version: 11
       - name: Maven package
         run: |
-          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://127.0.0.1:3306/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
+          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://127.0.0.1:4399/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
           mvn --file pom.xml package
