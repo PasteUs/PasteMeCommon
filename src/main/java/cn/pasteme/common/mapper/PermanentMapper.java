@@ -22,7 +22,7 @@ public interface PermanentMapper {
      * @param key 主键
      * @return PermanentDO
      */
-    @Select("SELECT * FROM `pasteme`.`permanents` WHERE `key` = #{key} AND `deleted_at` IS NULL")
+    @Select("SELECT * FROM `permanents` WHERE `key` = #{key} AND `deleted_at` IS NULL")
     PermanentDO getByKey(Long key);
 
     /**
@@ -30,7 +30,7 @@ public interface PermanentMapper {
      * @param permanentDO 永久实体
      * @return key 主键
      */
-    @Insert("INSERT INTO `pasteme`.`permanents` (`lang`, `content`, `password`, `client_ip`, `created_at`) " +
+    @Insert("INSERT INTO `permanents` (`lang`, `content`, `password`, `client_ip`, `created_at`) " +
             "VALUE (#{lang}, #{content}, #{password}, #{clientIp}, now())")
     @Options(useGeneratedKeys = true, keyProperty = "key", keyColumn = "key")
     Long create(PermanentDO permanentDO);
@@ -40,6 +40,6 @@ public interface PermanentMapper {
      * @param key 主键
      * @return 是否删除成功
      */
-    @Update("UPDATE `pasteme`.`permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
+    @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
     Boolean eraseByKey(Long key);
 }

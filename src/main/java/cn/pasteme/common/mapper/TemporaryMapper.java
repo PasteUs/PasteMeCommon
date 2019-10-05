@@ -21,7 +21,7 @@ public interface TemporaryMapper {
      * @param key key
      * @return TemporaryDO
      */
-    @Select("SELECT * FROM `pasteme`.`temporaries` WHERE `key` = #{key}")
+    @Select("SELECT * FROM `temporaries` WHERE `key` = #{key}")
     TemporaryDO getByKey(String key);
 
     /**
@@ -29,7 +29,7 @@ public interface TemporaryMapper {
      * @param temporaryDO 临时实体
      * @return key 主键
      */
-    @Insert("INSERT INTO `pasteme`.`temporaries` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
+    @Insert("INSERT INTO `temporaries` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
             "VALUE (#{key}, #{lang}, #{content}, #{password}, #{clientIp}, now())")
     String create(TemporaryDO temporaryDO);
 
@@ -38,6 +38,6 @@ public interface TemporaryMapper {
      * @param key 主键
      * @return 是否删除成功
      */
-    @Delete("DELETE FROM `pasteme`.`temporaries` WHERE `key` = #{key}")
+    @Delete("DELETE FROM `temporaries` WHERE `key` = #{key}")
     Boolean eraseByKey(String key);
 }

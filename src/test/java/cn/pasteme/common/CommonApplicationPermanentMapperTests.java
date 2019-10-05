@@ -32,6 +32,7 @@ public class CommonApplicationPermanentMapperTests {
     @Before
     public void beforeTest() {
         permanentTestMapper.createTable();
+//        permanentTestMapper.createIndex();
         PermanentDO permanentDO = new PermanentDO();
         permanentDO.setKey(TEST_ID);
         permanentDO.setLang("plain");
