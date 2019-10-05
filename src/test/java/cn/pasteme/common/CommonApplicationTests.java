@@ -18,8 +18,7 @@ public class CommonApplicationTests {
 
     @Test
     public void contextLoads() {
-        System.out.println("Hello World!");
-        // System.out.println(JSON.toJSONString(permanentMapper.getByKey(100L)));
+        System.out.println(JSON.toJSONString(permanentMapper.getByKey(100L)));
     }
 
 }
