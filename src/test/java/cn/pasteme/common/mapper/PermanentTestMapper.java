@@ -33,8 +33,8 @@ public interface PermanentTestMapper {
     @Insert("CREATE INDEX `idx` ON `permanents` (`key`);")
     void createIndex();
 
-    @Insert("INSERT INTO `permanents` (`key`, `content`, `lang`, `password`, `created_at`) " +
-            "VALUE (#{key}, #{content}, #{lang}, #{password}, now())")
+    @Insert("INSERT INTO `permanents` (`key`, `content`, `lang`, `password`, `client_ip`, `created_at`) " +
+            "VALUE (#{key}, #{content}, #{lang}, #{password}, #{clientIp}, now())")
     Long create(PermanentDO permanentDO);
 
     @Delete("DELETE FROM `permanents` WHERE `key` = #{key}")
