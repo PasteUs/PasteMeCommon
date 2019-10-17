@@ -2,8 +2,8 @@ package cn.pasteme.common;
 
 import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.mapper.PermanentMapper;
-
 import cn.pasteme.common.mapper.PermanentTestMapper;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,14 +27,13 @@ public class CommonApplicationPermanentMapperTests {
     @Autowired
     private PermanentMapper permanentMapper;
     
-    private static Long TEST_ID = 99L;
+    private static Long TEST_KEY = 99L;
 
     @Before
     public void beforeTest() {
         permanentTestMapper.createTable();
-//        permanentTestMapper.createIndex();
         PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setKey(TEST_ID);
+        permanentDO.setKey(TEST_KEY);
         permanentDO.setLang("plain");
         permanentDO.setContent("shuiqingyuan is sb");
         permanentDO.setPassword("password");
@@ -45,20 +44,20 @@ public class CommonApplicationPermanentMapperTests {
 
     @After
     public void afterTest() {
-        Assert.assertEquals(Long.valueOf(1), permanentTestMapper.delete(TEST_ID));
+        Assert.assertEquals(Long.valueOf(1), permanentTestMapper.delete(TEST_KEY));
     }
 
     @Test
     public void getByKeyTest() {
-        Assert.assertEquals(TEST_ID, permanentMapper.getByKey(TEST_ID).getKey());
+        Assert.assertEquals(TEST_KEY, permanentMapper.getByKey(TEST_KEY).getKey());
 
     }
 
     @Test
     public void eraseByKeyTest(){
-        Assert.assertNotNull(permanentMapper.getByKey(TEST_ID));
-        Assert.assertTrue(permanentMapper.eraseByKey(TEST_ID));
-        Assert.assertNull(permanentMapper.getByKey(TEST_ID));
+        Assert.assertNotNull(permanentMapper.getByKey(TEST_KEY));
+        Assert.assertEquals(Long.valueOf(1),permanentMapper.eraseByKey(TEST_KEY));
+        Assert.assertNull(permanentMapper.getByKey(TEST_KEY));
     }
 
     @Test

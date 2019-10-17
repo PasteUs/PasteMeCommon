@@ -8,6 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Irene, 白振宇
  * @date 2019/09/30 00:58
@@ -22,7 +26,7 @@ public interface TemporaryMapper {
      * @return TemporaryDO
      */
     @Select("SELECT * FROM `temporaries` WHERE `key` = #{key}")
-    TemporaryDO getByKey(String key);
+    TemporaryDO getByKey(@Valid @NotBlank String key);
 
     /**
      * 插入 temporaryDO 新记录
@@ -31,7 +35,7 @@ public interface TemporaryMapper {
      */
     @Insert("INSERT INTO `temporaries` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
             "VALUE (#{key}, #{lang}, #{content}, #{password}, #{clientIp}, now())")
-    String create(TemporaryDO temporaryDO);
+    Long create(@Valid TemporaryDO temporaryDO);
 
     /**
      * 根据 key 删除 记录
@@ -39,5 +43,5 @@ public interface TemporaryMapper {
      * @return 是否删除成功
      */
     @Delete("DELETE FROM `temporaries` WHERE `key` = #{key}")
-    Boolean eraseByKey(String key);
+    Long eraseByKey(@Valid @NotBlank String key);
 }
