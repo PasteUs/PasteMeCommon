@@ -6,7 +6,7 @@ import cn.pasteme.common.entity.PasteDO;
 
 /**
  * @author Lucien
- * @date 2019/10/01 02:02
+ * @version 1.0.0
  *
  * PermanentManager 和 TemporaryManager 的上层接口
  */

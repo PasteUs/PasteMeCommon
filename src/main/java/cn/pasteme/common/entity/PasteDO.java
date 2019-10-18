@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * @author Lucien
- * @date 2019/10/01 02:11
+ * @version 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

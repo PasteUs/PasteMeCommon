@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Ryan Lee
- * @date 2019/10/01 17:47
+ * @version 1.0.0
  */
 @Slf4j
 public class ServiceLoggingInterceptor {
