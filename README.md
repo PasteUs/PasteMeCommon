@@ -6,7 +6,7 @@ PasteMe 基础组件
 
 ## Import
 
-```yaml
+```xml
 <dependency>
     <groupId>cn.pasteme</groupId>
     <artifactId>pasteme-common</artifactId>
