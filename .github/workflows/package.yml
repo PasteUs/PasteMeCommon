@@ -28,5 +28,5 @@ jobs:
       - name: Maven package
         run: |
           mvn --file pom.xml \
-              -Dspring.config.location=${PWD}/application.yml
+              -Dspring.config.location=${PWD}/.github/application.yml
               package
