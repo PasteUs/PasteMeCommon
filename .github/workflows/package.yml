@@ -27,5 +27,6 @@ jobs:
           java-version: 11
       - name: Maven package
         run: |
-          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://127.0.0.1:4399/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
-          mvn --file pom.xml package
+          mvn --file pom.xml \
+              -Dspring.config.location=${PWD}/application.yml
+              package

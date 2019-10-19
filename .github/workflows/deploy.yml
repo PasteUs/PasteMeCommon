@@ -33,5 +33,7 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
         run: |
-          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://127.0.0.1:4399/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
-          mvn --settings settings.xml --file pom.xml deploy
+          mvn --settings settings.xml \
+              --file pom.xml \
+              -Dspring.config.location=${PWD}/application.yml
+              deploy
