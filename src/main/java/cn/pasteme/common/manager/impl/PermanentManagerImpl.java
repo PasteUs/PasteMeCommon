@@ -6,7 +6,7 @@ import cn.pasteme.common.manager.PermanentManager;
 
 /**
  * @author Irene
- * @date 2019/10/05 01:28
+ * @version 1.0.0
  */
 public class PermanentManagerImpl implements PermanentManager {
     @Override
