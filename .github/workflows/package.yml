@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   package:
-    name: Package with JDK ${{ matrix.jdk_version }}
+    name: Package with JDK ${{ matrix.jdk_version }} and mysql ${{ matrix.mysql_version }}
 
     strategy:
       matrix:
