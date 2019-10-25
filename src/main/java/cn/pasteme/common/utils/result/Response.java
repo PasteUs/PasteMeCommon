@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /**
  * @author 白振宇
- * @date 2019/9/29 23:51
+ * @version 1.0.0
  */
 @Getter
 public class Response<T> {
@@ -38,12 +38,12 @@ public class Response<T> {
     /**
      * 失败时返回信息
      *
-     * @param codeMessage 错误代码
+     * @param responseCode 错误代码
      * @param <T> 泛型
      * @return 错误代码
      */
-    public static <T> Response<T> error(CodeMessage codeMessage) {
-        return new Response<>(codeMessage);
+    public static <T> Response<T> error(ResponseCode responseCode) {
+        return new Response<>(responseCode);
     }
 
     private Response(T data) {
@@ -52,13 +52,13 @@ public class Response<T> {
         this.data = data;
     }
 
-    private Response(CodeMessage codeMessage) {
-        if (codeMessage == null) {
+    private Response(ResponseCode responseCode) {
+        if (responseCode == null) {
             return;
         }
 
-        this.code = codeMessage.getCode();
-        this.message = codeMessage.getMessage();
+        this.code = responseCode.getCode();
+        this.message = responseCode.getMessage();
     }
 
     public Response() {

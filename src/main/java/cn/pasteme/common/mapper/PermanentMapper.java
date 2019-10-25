@@ -1,13 +1,19 @@
 package cn.pasteme.common.mapper;
 
 import cn.pasteme.common.entity.PermanentDO;
+
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Options;
 import org.springframework.stereotype.Component;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
- * @author 白振宇
- * @date 2019/9/30 00:58
+ * @author Irene, 白振宇
+ * @version 1.0.0
  */
 @Mapper
 @Component
@@ -18,22 +24,24 @@ public interface PermanentMapper {
      * @param key 主键
      * @return PermanentDO
      */
-    @Select("select * from `pasteme`.`permanents` where `key` = #{key} ")
-    PermanentDO getByKey(Long key);
+    @Select("SELECT * FROM `permanents` WHERE `key` = #{key} AND `deleted_at` IS NULL")
+    PermanentDO getByKey(@Valid @NotNull Long key);
 
-    //TODO
     /**
      * 插入 permanentDO 新记录
      * @param permanentDO 永久实体
      * @return key 主键
      */
-    Long create(PermanentDO permanentDO);
+    @Insert("INSERT INTO `permanents` (`lang`, `content`, `password`, `client_ip`, `created_at`) " +
+            "VALUE (#{lang}, #{content}, #{password}, #{clientIp}, now())")
+    @Options(useGeneratedKeys = true, keyProperty = "key", keyColumn = "key")
+    Long create(@Valid PermanentDO permanentDO);
 
-    //TODO
     /**
      * 根据 key 删除 记录
      * @param key 主键
      * @return 是否删除成功
      */
-    Boolean eraseByKey(Long key);
+    @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
+    Long eraseByKey(@Valid @NotNull Long key);
 }

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author Lucien
- * @date 2019/10/01 02:07
+ * @version 1.0.0
  */
 @Data
 public class PasteResponseDTO {

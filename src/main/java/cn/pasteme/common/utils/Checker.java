@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 各种检查器
  * @author Lucien
- * @date 2019/10/01 17:35
+ * @version 1.0.0
  */
 @Service
 public class Checker {

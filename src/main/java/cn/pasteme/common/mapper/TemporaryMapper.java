@@ -1,13 +1,20 @@
 package cn.pasteme.common.mapper;
 
 import cn.pasteme.common.entity.TemporaryDO;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
- * @author 白振宇
- * @date 2019/9/30 00:58
+ * @author Irene, 白振宇
+ * @version 1.0.0
  */
 @Mapper
 @Component
@@ -18,22 +25,23 @@ public interface TemporaryMapper {
      * @param key key
      * @return TemporaryDO
      */
-    @Select("select * from `pasteme`.`temporaries` where `key` = #{key}")
-    TemporaryDO getByKey(String key);
+    @Select("SELECT * FROM `temporaries` WHERE `key` = #{key}")
+    TemporaryDO getByKey(@Valid @NotBlank String key);
 
-    //TODO
     /**
      * 插入 temporaryDO 新记录
      * @param temporaryDO 临时实体
      * @return key 主键
      */
-    String create(TemporaryDO temporaryDO);
+    @Insert("INSERT INTO `temporaries` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
+            "VALUE (#{key}, #{lang}, #{content}, #{password}, #{clientIp}, now())")
+    Long create(@Valid TemporaryDO temporaryDO);
 
-    //TODO
     /**
      * 根据 key 删除 记录
      * @param key 主键
      * @return 是否删除成功
      */
-    Boolean eraseByKey(String key);
+    @Delete("DELETE FROM `temporaries` WHERE `key` = #{key}")
+    Long eraseByKey(@Valid @NotBlank String key);
 }

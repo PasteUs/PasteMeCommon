@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author 白振宇
- * @date 2019/10/4 11:08
+ * @version 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
