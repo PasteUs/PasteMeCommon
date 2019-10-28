@@ -10,7 +10,7 @@ jobs:
       matrix:
         jdk_version: [11, 12, 13]
         mvn_action: [package]
-        mysql_version: [5.7, 8]
+        mysql_version: [5.5, 5.7, 8]
         os: [ubuntu-latest]
 
     services:
