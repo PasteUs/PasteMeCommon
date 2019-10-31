@@ -35,8 +35,8 @@
 
     <repositories>
         <repository>
-            <id>github-repo</id>
-            <url>https://cdn.jsdelivr.net/gh/PasteUs/MavenRepository@latest</url>
+            <id>pasteus-github-mvn-repo</id>
+            <url>https://raw.githubusercontent.com/PasteUs/MavenRepository/master</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
