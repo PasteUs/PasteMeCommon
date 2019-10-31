@@ -5,6 +5,7 @@ import cn.pasteme.common.enumeration.ValueEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
+import javax.validation.constraints.NotNull;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,42 +27,39 @@ public class ValueEnumTypeHandler<E extends Enum<?> & ValueEnum> extends BaseTyp
         return null;
     }
 
-    public ValueEnumTypeHandler(Class<E> type) {
-        if (type == null) {
-            throw new IllegalArgumentException("Type argument cannot be null");
-        }
+    public ValueEnumTypeHandler(@NotNull(message = "Param type can not be null") Class<E> type) {
         this.type = type;
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, ValueEnum parameter, JdbcType jdbcType)
+    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, ValueEnum parameter, JdbcType jdbcType)
             throws SQLException {
-        ps.setInt(i, parameter.getValue());
+        preparedStatement.setInt(columnIndex, parameter.getValue());
     }
 
     @Override
-    public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        int code = rs.getInt(columnName);
-        return rs.wasNull() ? null : codeOf(code);
+    public E getNullableResult(ResultSet resultSet, String columnName) throws SQLException {
+        int value = resultSet.getInt(columnName);
+        return resultSet.wasNull() ? null : valueOf(value);
     }
 
     @Override
-    public E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        int code = rs.getInt(columnIndex);
-        return rs.wasNull() ? null : codeOf(code);
+    public E getNullableResult(ResultSet resultSet, int columnIndex) throws SQLException {
+        int value = resultSet.getInt(columnIndex);
+        return resultSet.wasNull() ? null : valueOf(value);
     }
 
     @Override
-    public E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        int code = cs.getInt(columnIndex);
-        return cs.wasNull() ? null : codeOf(code);
+    public E getNullableResult(CallableStatement callableStatement, int columnIndex) throws SQLException {
+        int value = callableStatement.getInt(columnIndex);
+        return callableStatement.wasNull() ? null : valueOf(value);
     }
 
-    private E codeOf(int code) {
+    private E valueOf(int value) {
         try {
-            return valueOf(type, code);
+            return valueOf(type, value);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Cannot convert " + code + " to " + type.getSimpleName() + " by code value.", e);
+            throw new IllegalArgumentException(String.format("Cannot convert value: %d to %s by value.", value, type.getSimpleName()), e);
         }
     }
 }
