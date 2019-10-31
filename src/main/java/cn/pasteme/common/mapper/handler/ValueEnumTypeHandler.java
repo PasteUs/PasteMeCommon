@@ -19,7 +19,7 @@ public class ValueEnumTypeHandler<E extends Enum<?> & ValueEnum> extends BaseTyp
 
     private Class<E> type;
 
-    private static <E extends Enum<?> & ValueEnum> E valueOf(Class<E> enumClass, int value) {
+    private static <E extends Enum<?> & ValueEnum> E getEnumByClassValue(Class<E> enumClass, int value) {
         for (E e : enumClass.getEnumConstants()) {
             if (e.getValue() == value)
                 return e;
@@ -32,8 +32,7 @@ public class ValueEnumTypeHandler<E extends Enum<?> & ValueEnum> extends BaseTyp
     }
 
     @Override
-    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, ValueEnum parameter, JdbcType jdbcType)
-            throws SQLException {
+    public void setNonNullParameter(PreparedStatement preparedStatement, int columnIndex, ValueEnum parameter, JdbcType jdbcType) throws SQLException {
         preparedStatement.setInt(columnIndex, parameter.getValue());
     }
 
@@ -57,7 +56,7 @@ public class ValueEnumTypeHandler<E extends Enum<?> & ValueEnum> extends BaseTyp
 
     private E valueOf(int value) {
         try {
-            return valueOf(type, value);
+            return getEnumByClassValue(type, value);
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format("Cannot convert value: %d to %s by value.", value, type.getSimpleName()), e);
         }
