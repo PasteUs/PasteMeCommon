@@ -27,7 +27,7 @@ public class ResponseCode {
 
     private String message;
 
-    private ResponseCode(int code, String message) {
+    protected ResponseCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
