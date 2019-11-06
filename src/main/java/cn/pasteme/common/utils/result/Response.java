@@ -75,6 +75,11 @@ public class Response<T> {
         this.code = 0;
     }
 
+    /**
+     * isSuccess
+     *
+     * @return boolean
+     */
     public boolean isSuccess() {
         return this.code == 0;
     }

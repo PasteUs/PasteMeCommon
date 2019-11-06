@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 public enum ResponseCode {
     /**
-     * 通用异常
+     * 通用 Response Code
      */
     SUCCESS(0, "success"),
 
