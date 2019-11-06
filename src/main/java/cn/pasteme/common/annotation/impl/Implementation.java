@@ -34,10 +34,10 @@ public class Implementation {
         String methodName = proceedingJoinPoint.getSignature().getName();
         Object response = proceedingJoinPoint.proceed();
         if (logging.withResponse()) {
-            log.info("[{}.{}]({}) return: {}", clazzName, methodName, proceedingJoinPoint.getArgs(), response);
+            log.info("ParamLog: [{}:{}({})] return: {}", clazzName, methodName, proceedingJoinPoint.getArgs(), response);
         }
         else {
-            log.info("[{}.{}]({})", clazzName, methodName, proceedingJoinPoint.getArgs());
+            log.info("ParamLog: [{}:{}({})]", clazzName, methodName, proceedingJoinPoint.getArgs());
         }
         return response;
     }
