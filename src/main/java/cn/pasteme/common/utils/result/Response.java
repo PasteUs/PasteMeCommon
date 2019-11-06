@@ -3,8 +3,8 @@ package cn.pasteme.common.utils.result;
 import lombok.Getter;
 
 /**
- * @author 白振宇
- * @version 1.0.0
+ * @author Lucien, 白振宇
+ * @version 1.0.1
  */
 @Getter
 public class Response<T> {
@@ -36,6 +36,16 @@ public class Response<T> {
     }
 
     /**
+     * 无参数的成功
+     * 有时候只是想返回一个 boolean，又希望出现错误时可以带上错误信息
+     *
+     * @return Response
+     */
+    public static Response success() {
+        return new Response<>();
+    }
+
+    /**
      * 失败时返回信息
      *
      * @param responseCode 错误代码
@@ -61,8 +71,17 @@ public class Response<T> {
         this.message = responseCode.getMessage();
     }
 
-    public Response() {
+    private Response() {
+        this.code = 0;
+    }
 
+    /**
+     * isSuccess
+     *
+     * @return boolean
+     */
+    public boolean isSuccess() {
+        return this.code == 0;
     }
 
     /**
@@ -70,7 +89,6 @@ public class Response<T> {
      *
      * @return Response(code = ${code}, message = ${message}, data = ${data})
      */
-
     @Override
     public String toString() {
         return "Response(" +
