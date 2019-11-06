@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author 白振宇
- * @version 1.0.0
+ * @author Lucien, 白振宇
+ * @version 1.0.1
  */
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    Response<String> exceptionHandler(HttpServletRequest request, Exception e) {
+    Response exceptionHandler(HttpServletRequest request, Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
             return Response.error(ge.getCm());
