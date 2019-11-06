@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author 白振宇
- * @version 1.0.0
+ * @author Lucien, 白振宇
+ * @version 1.0.1
  */
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    Response<String> exceptionHandler(HttpServletRequest request, Exception e) {
+    Response exceptionHandler(HttpServletRequest request, Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
             return Response.error(ge.getCm());
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);
             String msg = error.getDefaultMessage();
-            return Response.error(ResponseCode.BIND_ERROR.fillArgs(msg));
+            return Response.error(ResponseCode.BIND_ERROR).fillArgs(msg);
         } else {
             e.printStackTrace();
             return Response.error(ResponseCode.SERVER_ERROR);
