@@ -2,10 +2,14 @@ package cn.pasteme.common.utils.result;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Lucien, 白振宇
  * @version 1.1.0
  */
+@Getter
 public enum ResponseCode {
     /**
      * 通用 Response Code
@@ -32,14 +36,23 @@ public enum ResponseCode {
 
     METHOD_NOT_ALLOWED(405, "Method Not Allowed");
 
-    @Getter
     private int code;
 
-    @Getter
     private String message;
 
     ResponseCode(int code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    /**
+     * 填充 message
+     *
+     * @param args 填充参数
+     * @return this
+     */
+    public ResponseCode fillArgs(Object... args) {
+        this.message = String.format(this.message, args);
+        return this;
     }
 }

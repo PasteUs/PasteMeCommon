@@ -85,17 +85,6 @@ public class Response<T> {
     }
 
     /**
-     * 填充 message
-     *
-     * @param args 填充参数
-     * @return this
-     */
-    public Response fillArgs(Object... args) {
-        this.message = String.format(this.message, args);
-        return this;
-    }
-
-    /**
      * 以字符串形式输出
      *
      * @return Response(code = ${code}, message = ${message}, data = ${data})
