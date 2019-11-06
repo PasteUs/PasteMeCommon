@@ -24,7 +24,7 @@ public class Implementation {
         long startTime = System.currentTimeMillis();
         Object response = proceedingJoinPoint.proceed();
         long endTime = System.currentTimeMillis();
-        log.info("Timer: [{}:{}] cost {} ms", clazzName, methodName, endTime - startTime);
+        log.info("Timer: [{}@{}] cost {} ms", clazzName, methodName, endTime - startTime);
         return response;
     }
 
@@ -34,10 +34,10 @@ public class Implementation {
         String methodName = proceedingJoinPoint.getSignature().getName();
         Object response = proceedingJoinPoint.proceed();
         if (logging.withResponse()) {
-            log.info("ParamLog: [{}:{}({})] return: {}", clazzName, methodName, proceedingJoinPoint.getArgs(), response);
+            log.info("ParamLog: [{}@{}({})] return: {}", clazzName, methodName, proceedingJoinPoint.getArgs(), response);
         }
         else {
-            log.info("ParamLog: [{}:{}({})]", clazzName, methodName, proceedingJoinPoint.getArgs());
+            log.info("ParamLog: [{}@{}({})]", clazzName, methodName, proceedingJoinPoint.getArgs());
         }
         return response;
     }
