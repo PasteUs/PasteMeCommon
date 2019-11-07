@@ -24,8 +24,9 @@ public interface PermanentMapper {
      * @param key 主键
      * @return PermanentDO
      */
-    @Select("SELECT * FROM `permanents` WHERE `key` = #{key} AND `deleted_at` IS NULL")
+    @Select("SELECT * FROM `permanents` WHERE `key` = #{key}")
     PermanentDO getByKey(@Valid @NotNull Long key);
+
 
     /**
      * 插入 permanentDO 新记录
