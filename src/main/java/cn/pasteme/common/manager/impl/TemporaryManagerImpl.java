@@ -5,12 +5,11 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.manager.TemporaryManager;
 import cn.pasteme.common.mapper.TemporaryMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Irene
- * @version 1.0.0
+ * @author Lucien, Irene
+ * @version 1.1.0
  */
 
 @Service
@@ -66,5 +65,10 @@ public class TemporaryManagerImpl implements TemporaryManager {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public Long count() {
+        return null;
     }
 }

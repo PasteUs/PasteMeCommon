@@ -5,12 +5,11 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.manager.PermanentManager;
 import cn.pasteme.common.mapper.PermanentMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Irene
- * @version 1.0.0
+ * @author Lucien, Irene
+ * @version 1.1.0
  */
 @Service
 public class PermanentManagerImpl implements PermanentManager {
@@ -71,5 +70,15 @@ public class PermanentManagerImpl implements PermanentManager {
                 return 0;
             }
         }
+    }
+
+    @Override
+    public Long count() {
+        return null;
+    }
+
+    @Override
+    public Long getCurrentMaxKey() {
+        return null;
     }
 }

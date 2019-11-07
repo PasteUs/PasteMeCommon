@@ -3,20 +3,19 @@ package cn.pasteme.common.mapper;
 import cn.pasteme.common.entity.PermanentDO;
 
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Options;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Irene, 白振宇
- * @version 1.0.0
+ * @author Lucien, Irene, 白振宇
+ * @version 1.1.0
  */
-@Mapper
-@Component
+@Repository
 public interface PermanentMapper {
 
     /**
@@ -45,4 +44,7 @@ public interface PermanentMapper {
      */
     @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
     Long eraseByKey(@Valid @NotNull Long key);
+
+    @Select("SELECT COUNT(1) FROM `permanents`")
+    Long count();
 }

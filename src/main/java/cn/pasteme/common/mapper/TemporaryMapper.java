@@ -4,20 +4,17 @@ import cn.pasteme.common.entity.TemporaryDO;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
- * @author Irene, 白振宇
+ * @author Lucien, Irene, 白振宇
  * @version 1.0.0
  */
-@Mapper
-@Component
+@Repository
 public interface TemporaryMapper {
 
     /**
@@ -44,4 +41,7 @@ public interface TemporaryMapper {
      */
     @Delete("DELETE FROM `temporaries` WHERE `key` = #{key}")
     Long eraseByKey(@Valid @NotBlank String key);
+
+    @Select("SELECT COUNT(1) FROM `temporaries`")
+    Long count();
 }
