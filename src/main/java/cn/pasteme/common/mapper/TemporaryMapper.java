@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author Lucien, Irene, 白振宇
- * @version 1.0.0
+ * @version 1.1.0
  */
 @Repository
 public interface TemporaryMapper {
@@ -43,5 +43,8 @@ public interface TemporaryMapper {
     Long eraseByKey(@Valid @NotBlank String key);
 
     @Select("SELECT COUNT(1) FROM `temporaries`")
-    Long count();
+    Long countAll();
+
+    @Select("SELECT COUNT(1) FROM `temporaries` WHERE `key` = #{key}")
+    Long countByKey(String key);
 }

@@ -5,13 +5,18 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.manager.TemporaryManager;
 import cn.pasteme.common.mapper.TemporaryMapper;
+import cn.pasteme.common.utils.result.Response;
+import cn.pasteme.common.utils.result.ResponseCode;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Lucien, Irene
- * @version 1.1.0
+ * @version 1.2.0
  */
 
+@Slf4j
 @Service
 public class TemporaryManagerImpl implements TemporaryManager {
 
@@ -22,7 +27,7 @@ public class TemporaryManagerImpl implements TemporaryManager {
     }
 
     @Override
-    public String save(PasteRequestDTO pasteRequestDTO) {
+    public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         TemporaryDO temporaryDO = new TemporaryDO();
         temporaryDO.setKey(pasteRequestDTO.getKey());
         temporaryDO.setContent(pasteRequestDTO.getContent());
@@ -30,45 +35,47 @@ public class TemporaryManagerImpl implements TemporaryManager {
         temporaryDO.setClientIp(pasteRequestDTO.getClientIp());
         temporaryDO.setPassword(pasteRequestDTO.getPassword());
         if (temporaryMapper.create(temporaryDO) == 1){
-            return temporaryDO.getKey();
+            return Response.success(temporaryDO.getKey());
         } else {
-            return null;
+            return Response.error(ResponseCode.SERVER_ERROR);
         }
     }
 
     @Override
-    public PasteResponseDTO get(String key) {
+    public Response<PasteResponseDTO> get(String key) {
         TemporaryDO temporaryDO = temporaryMapper.getByKey(key);
         if (temporaryDO != null) {
             PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
             pasteResponseDTO.setContent(temporaryDO.getContent());
             pasteResponseDTO.setLang(temporaryDO.getLang());
-            return pasteResponseDTO;
+
+            Response response = erase(key);
+
+            if (!response.isSuccess()) {
+                log.error("Erase temporary after get failed, responseCode = ({}, {})", response.getCode(), response.getMessage());
+            }
+
+            return Response.success(pasteResponseDTO);
         } else {
-            return null;
+            return Response.error(ResponseCode.SERVER_ERROR);
         }
     }
 
     @Override
-    public Boolean erase(String key) {
-        if (temporaryMapper.getByKey(key) == null) {
-            return false;
+    public Response erase(String key) {
+        if (temporaryMapper.countByKey(key) == 0) {
+            return Response.error(ResponseCode.NOT_FOUND);
         } else {
-            return temporaryMapper.eraseByKey(key) == 1;
+            if (temporaryMapper.eraseByKey(key) == 1) {
+                return Response.success();
+            } else {
+                return Response.error(ResponseCode.SERVER_ERROR);
+            }
         }
     }
 
     @Override
-    public Integer status(String key) {
-        if (temporaryMapper.getByKey(key) == null){
-            return -1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public Long count() {
-        return null;
+    public Response<Long> countAll() {
+        return Response.success(temporaryMapper.countAll());
     }
 }

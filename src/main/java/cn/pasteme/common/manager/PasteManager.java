@@ -3,12 +3,13 @@ package cn.pasteme.common.manager;
 import cn.pasteme.common.dto.PasteRequestDTO;
 import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PasteDO;
+import cn.pasteme.common.utils.result.Response;
 
 /**
  * PermanentManager 和 TemporaryManager 的上层接口
  *
  * @author Lucien
- * @version 1.0.0
+ * @version 1.1.0
  */
 public interface PasteManager {
 
@@ -18,7 +19,7 @@ public interface PasteManager {
      * @param pasteRequestDTO 持久 Paste
      * @return 数据库中 record 的主键
      */
-    String save(PasteRequestDTO pasteRequestDTO);
+    Response<String> save(PasteRequestDTO pasteRequestDTO);
 
     /**
      * 从数据库中查询 record
@@ -26,7 +27,7 @@ public interface PasteManager {
      * @param key 主键
      * @return PasteResponseDTO
      */
-    PasteResponseDTO get(String key);
+    Response<PasteResponseDTO> get(String key);
 
     /**
      * 删除数据库中的 record
@@ -35,20 +36,12 @@ public interface PasteManager {
      * @param key 主键
      * @return 删除成功或失败
      */
-    Boolean erase(String key);
-
-    /**
-     * 查询数据库中 key 的状态
-     *
-     * @param key 主键
-     * @return 0: 不存在, 1: 存在, -1: 存在但被删除
-     */
-    Integer status(String key);
+    Response erase(String key);
 
     /**
      * 查询数据库中有多少条记录
      *
      * @return 数量
      */
-    Long count();
+    Response<Long> countAll();
 }

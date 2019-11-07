@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     Response exceptionHandler(HttpServletRequest request, Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
-            return Response.error(ge.getCm());
+            return Response.error(ge.getResponseCode());
         } else if (e instanceof org.springframework.validation.BindException) {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);

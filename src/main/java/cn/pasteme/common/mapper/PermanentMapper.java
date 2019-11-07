@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Lucien, Irene, 白振宇
- * @version 1.1.0
+ * @version 1.2.0
  */
 @Repository
 public interface PermanentMapper {
@@ -46,5 +46,8 @@ public interface PermanentMapper {
     Long eraseByKey(@Valid @NotNull Long key);
 
     @Select("SELECT COUNT(1) FROM `permanents`")
-    Long count();
+    Long countAll();
+
+    @Select("SELECT COUNT(1) FROM `permanents` WHERE `key` = #{key}")
+    Long countByKey(Long key);
 }
