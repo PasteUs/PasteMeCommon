@@ -15,43 +15,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * @author Irene
- * @date 2019/10/07 20:04
+ * @author Lucien, Irene
+ * @version 1.1.0
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class PermanentManagerImplTests {
+
     @Autowired
     PermanentManager permanentManager;
 
-    @Before
-    public void beforeTest(){
-
-    }
-
-    @After
-    public void afterTest(){
-
-    }
-
     @Test
-    public void saveTest(){
-
-    }
-
-    @Test
-    public void getTest(){
-
-    }
-
-    @Test
-    public void eraseTest(){
-
-    }
-
-    @Test
-    public void statusTest(){
+    public void main() {
 
     }
 }

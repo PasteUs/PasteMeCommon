@@ -2,71 +2,57 @@ package cn.pasteme.common;
 
 import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.mapper.PermanentMapper;
-import cn.pasteme.common.mapper.PermanentTestMapper;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 /**
  * @author Irene
  * @version 1.0.0
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CommonApplicationPermanentMapperTests {
     
     @Autowired
-    private PermanentTestMapper permanentTestMapper;
-
-    @Autowired
     private PermanentMapper permanentMapper;
-    
-    private static Long TEST_KEY = 99L;
-
-    @Before
-    public void beforeTest() {
-        permanentTestMapper.createTable();
-        PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setKey(TEST_KEY);
-        permanentDO.setLang("plain");
-        permanentDO.setContent("shuiqingyuan is sb");
-        permanentDO.setPassword("password");
-        permanentDO.setClientIp("127.0.0.1");
-        Assert.assertNotNull(permanentTestMapper);
-        Assert.assertEquals(Long.valueOf(1), permanentTestMapper.create(permanentDO));
-    }
-
-    @After
-    public void afterTest() {
-        Assert.assertEquals(Long.valueOf(1), permanentTestMapper.delete(TEST_KEY));
-    }
-
-    @Test
-    public void getByKeyTest() {
-        Assert.assertEquals(TEST_KEY, permanentMapper.getByKey(TEST_KEY).getKey());
-
-    }
-
-    @Test
-    public void eraseByKeyTest(){
-        Assert.assertNotNull(permanentMapper.getByKey(TEST_KEY));
-        Assert.assertEquals(Long.valueOf(1),permanentMapper.eraseByKey(TEST_KEY));
-        Assert.assertNull(permanentMapper.getByKey(TEST_KEY));
-    }
 
     @Test
     public void createTest(){
-        PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setLang("plain");
-        permanentDO.setContent("shuiqingyuan is sb");
-        permanentDO.setClientIp("");
-        Assert.assertEquals(Long.valueOf(1), permanentMapper.create(permanentDO));
-    }
+        Long key;
+        Long count = permanentMapper.countAll();
 
+        // create
+        {
+            PermanentDO permanentDO = new PermanentDO();
+            permanentDO.setLang("plain");
+            permanentDO.setContent("sqy is sunny boy");
+            permanentDO.setClientIp("0.0.0.0");
+            assertEquals(Long.valueOf(1), permanentMapper.create(permanentDO));
+
+            key = permanentDO.getKey();
+        }
+        
+        assertEquals(Long.valueOf(count + 1), permanentMapper.countAll());
+
+        // getByKey
+        {
+            assertNull(permanentMapper.getByKey(-1L));
+            assertEquals(key, permanentMapper.getByKey(key).getKey());
+        }
+
+        // eraseByKey
+        {
+            assertNotNull(permanentMapper.getByKey(key));
+            assertEquals(Long.valueOf(1), permanentMapper.eraseByKey(key));
+            assertNull(permanentMapper.getByKey(key));
+        }
+    }
 }

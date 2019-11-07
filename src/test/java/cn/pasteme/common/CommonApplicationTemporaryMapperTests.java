@@ -2,55 +2,56 @@ package cn.pasteme.common;
 
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.mapper.TemporaryMapper;
-import cn.pasteme.common.mapper.TemporaryTestMapper;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 /**
  * @author Irene
  * @version 1.0.0
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CommonApplicationTemporaryMapperTests {
     @Autowired
     private TemporaryMapper temporaryMapper;
 
-    @Autowired
-    private TemporaryTestMapper temporaryTestMapper;
-    
-    private static String TEST_KEY = "sqysb";
-
-    @Before
-    public void before() {
-        temporaryTestMapper.createTable();
-    }
-
     @Test
-    public void main() {
+    public void createTest(){
+        String key = "sqy sb";
+        Long count = temporaryMapper.countAll();
 
-        Assert.assertNull(temporaryMapper.getByKey(TEST_KEY));
+        // create
+        {
+            TemporaryDO temporaryDO = new TemporaryDO();
+            temporaryDO.setKey(key);
+            temporaryDO.setLang("plain");
+            temporaryDO.setContent("sqy is sunny boy");
+            temporaryDO.setClientIp("0.0.0.0");
+            assertEquals(Long.valueOf(1), temporaryMapper.create(temporaryDO));
 
-        TemporaryDO temporaryDO = new TemporaryDO();
-        temporaryDO.setKey(TEST_KEY);
-        temporaryDO.setLang("plain");
-        temporaryDO.setContent("shuizhuzhu");
-        temporaryDO.setPassword("irene");
-        temporaryDO.setClientIp("127.0.0.1");
+            key = temporaryDO.getKey();
+        }
 
-        Assert.assertNotNull(temporaryDO);
+        assertEquals(Long.valueOf(count + 1), temporaryMapper.countAll());
 
-        Assert.assertEquals(Long.valueOf(1), temporaryMapper.create(temporaryDO));
+        // getByKey
+        {
+            assertNull(temporaryMapper.getByKey("sqy handsome"));
+            assertEquals(key, temporaryMapper.getByKey(key).getKey());
+        }
 
-        Assert.assertNotNull(temporaryMapper.getByKey(TEST_KEY));
-
-        Assert.assertEquals(Long.valueOf(1), temporaryMapper.eraseByKey(TEST_KEY));
-
-        Assert.assertNull(temporaryMapper.getByKey(TEST_KEY));
+        // eraseByKey
+        {
+            assertNotNull(temporaryMapper.getByKey(key));
+            assertEquals(Long.valueOf(1), temporaryMapper.eraseByKey(key));
+            assertNull(temporaryMapper.getByKey(key));
+        }
     }
 }
