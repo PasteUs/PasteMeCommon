@@ -35,6 +35,6 @@ jobs:
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
         run: |
           mvn --settings .github/settings.xml \
-              -Dspring.config.location=${PWD}/.github/application.yml \
               --file pom.xml \
+              -Dspring.config.location=${PWD}/.github/application.yml \
               deploy
