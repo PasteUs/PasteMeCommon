@@ -35,6 +35,6 @@ jobs:
           java-version: ${{ matrix.jdk_version }}
       - name: Maven ${{ matrix.mvn_action }}
         run: |
-          echo "127.0.0.1 mysql" >> /etc/hosts
+          sudo echo "127.0.0.1 mysql" >> /etc/hosts
           mvn --file pom.xml \
               ${{ matrix.mvn_action }}
