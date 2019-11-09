@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:4399/pasteme
+    username: username
+    password: password
+    schema:
+      - classpath:sql/init/permanent.sql
+      - classpath:sql/init/temporary.sql
+    initialization-mode: always

@@ -34,7 +34,7 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
         run: |
-          echo "127.0.0.1 mysql" >> /etc/hosts
           mvn --settings .github/settings.xml \
+              -Dspring.config.location=${PWD}/.github/application.yml \
               --file pom.xml \
               deploy
