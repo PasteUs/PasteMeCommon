@@ -4,6 +4,6 @@ spring:
     username: username
     password: password
     schema:
-      - classpath:sql/init/permanent.sql
-      - classpath:sql/init/temporary.sql
+      - classpath:sql/init/*.sql
+
     initialization-mode: always
