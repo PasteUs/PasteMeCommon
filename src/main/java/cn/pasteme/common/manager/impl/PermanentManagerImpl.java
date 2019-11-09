@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Lucien, Irene
- * @version 1.2.0
+ * @version 1.2.1
  */
 @Service
 public class PermanentManagerImpl implements PermanentManager {
@@ -25,7 +25,6 @@ public class PermanentManagerImpl implements PermanentManager {
     @Override
     public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setKey(Long.valueOf(pasteRequestDTO.getKey()));
         permanentDO.setLang(pasteRequestDTO.getLang());
         permanentDO.setContent(pasteRequestDTO.getContent());
         permanentDO.setPassword(pasteRequestDTO.getPassword());
@@ -41,7 +40,7 @@ public class PermanentManagerImpl implements PermanentManager {
     public Response<PasteResponseDTO> get(String key) {
         PermanentDO permanentDO = permanentMapper.getByKey(Long.valueOf(key));
         if (permanentDO != null) {
-            if (permanentDO.getDeletedAt() != null) {
+            if (null == permanentDO.getDeletedAt()) {
                 PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
                 pasteResponseDTO.setLang(permanentDO.getLang());
                 pasteResponseDTO.setContent(permanentDO.getContent());

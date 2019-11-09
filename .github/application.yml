@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://127.0.0.1:4399/pasteme
-    username: username
-    password: password

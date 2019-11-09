@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `temporaries`
+CREATE TABLE IF NOT EXISTS `permanents`
 (
     `key`        BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `lang`       VARCHAR(16)     NOT NULL,
@@ -11,5 +11,3 @@ CREATE TABLE IF NOT EXISTS `temporaries`
   ENGINE = Innodb
   DEFAULT CHARSET = utf8mb4
   AUTO_INCREMENT = 100;
-
-create index `idx` on `permanents` (`key`);

@@ -4,11 +4,14 @@ import cn.pasteme.common.entity.TemporaryDO;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 /**
  * @author Lucien, Irene, 白振宇
@@ -23,6 +26,14 @@ public interface TemporaryMapper {
      * @return TemporaryDO
      */
     @Select("SELECT * FROM `temporaries` WHERE `key` = #{key}")
+    @Results(id = "TemporaryDO", value = {
+            @Result(property = "key", column = "key"),
+            @Result(property = "lang", column = "lang"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "clientIp", column = "client_ip"),
+            @Result(property = "createdAt", column = "created_at", javaType = Date.class)
+    })
     TemporaryDO getByKey(@Valid @NotBlank String key);
 
     /**

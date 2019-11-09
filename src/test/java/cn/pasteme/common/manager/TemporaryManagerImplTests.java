@@ -2,10 +2,8 @@ package cn.pasteme.common.manager;
 
 import cn.pasteme.common.dto.PasteRequestDTO;
 import cn.pasteme.common.dto.PasteResponseDTO;
-import cn.pasteme.common.entity.TemporaryDO;
 
 import cn.pasteme.common.utils.result.Response;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,24 +25,23 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class TemporaryManagerImplTests {
+
     @Autowired
     TemporaryManager temporaryManager;
 
     private String TEST_KEY_ONE = "OctSevenOne";
-
-    private String TEST_KEY_TWO = "OctSevenTwo";
 
     private PasteRequestDTO pasteRequestDTO = new PasteRequestDTO();
 
     private PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
 
     @Before
-    public void beforeTest() {
+    public void before() {
         pasteRequestDTO.setKey(TEST_KEY_ONE);
         pasteRequestDTO.setLang("plain");
         pasteRequestDTO.setContent("Oct");
         pasteRequestDTO.setPassword("holiday over");
-        pasteRequestDTO.setClientIp("127.0.0.1");
+        pasteRequestDTO.setClientIp("0.0.0.0");
 
         BeanUtils.copyProperties(pasteRequestDTO, pasteResponseDTO);
     }

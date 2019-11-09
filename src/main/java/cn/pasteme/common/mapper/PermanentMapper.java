@@ -3,6 +3,8 @@ package cn.pasteme.common.mapper;
 import cn.pasteme.common.entity.PermanentDO;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Options;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author Lucien, Irene, 白振宇
@@ -24,6 +27,15 @@ public interface PermanentMapper {
      * @return PermanentDO
      */
     @Select("SELECT * FROM `permanents` WHERE `key` = #{key}")
+    @Results(id = "PermanentDO", value = {
+            @Result(property = "key", column = "key"),
+            @Result(property = "lang", column = "lang"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "clientIp", column = "client_ip"),
+            @Result(property = "createdAt", column = "created_at", javaType = Date.class),
+            @Result(property = "deletedAt", column = "deleted_at", javaType = Date.class)
+    })
     PermanentDO getByKey(@Valid @NotNull Long key);
 
 

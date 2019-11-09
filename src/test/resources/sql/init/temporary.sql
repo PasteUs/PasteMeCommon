@@ -9,4 +9,3 @@ CREATE TABLE IF NOT EXISTS `temporaries`
 ) COLLATE = utf8mb4_general_ci
   ENGINE = Innodb
   DEFAULT CHARSET = utf8mb4;
-create index `idx` on `temporaries` (`key`);

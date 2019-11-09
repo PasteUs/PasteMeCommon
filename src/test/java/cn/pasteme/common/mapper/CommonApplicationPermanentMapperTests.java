@@ -1,8 +1,8 @@
-package cn.pasteme.common;
+package cn.pasteme.common.mapper;
 
 import cn.pasteme.common.entity.PermanentDO;
-import cn.pasteme.common.mapper.PermanentMapper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,9 @@ import static org.junit.Assert.assertNull;
 
 /**
  * @author Irene
- * @version 1.0.0
+ * @version 1.0.1
  */
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CommonApplicationPermanentMapperTests {
@@ -25,7 +26,7 @@ public class CommonApplicationPermanentMapperTests {
     private PermanentMapper permanentMapper;
 
     @Test
-    public void createTest(){
+    public void main(){
         Long key;
         Long count = permanentMapper.countAll();
 
@@ -35,6 +36,7 @@ public class CommonApplicationPermanentMapperTests {
             permanentDO.setLang("plain");
             permanentDO.setContent("sqy is sunny boy");
             permanentDO.setClientIp("0.0.0.0");
+            permanentDO.setPassword("password");
             assertEquals(Long.valueOf(1), permanentMapper.create(permanentDO));
 
             key = permanentDO.getKey();
@@ -45,14 +47,23 @@ public class CommonApplicationPermanentMapperTests {
         // getByKey
         {
             assertNull(permanentMapper.getByKey(-1L));
-            assertEquals(key, permanentMapper.getByKey(key).getKey());
+            PermanentDO permanentDO = permanentMapper.getByKey(key);
+            assertEquals(key, permanentDO.getKey());
+            assertEquals("plain", permanentDO.getLang());
+            assertEquals("sqy is sunny boy", permanentDO.getContent());
+            assertEquals("0.0.0.0", permanentDO.getClientIp());
+            assertEquals("password", permanentDO.getPassword());
+            assertNotNull(permanentDO.getCreatedAt());
+            assertNull(permanentDO.getDeletedAt());
         }
 
         // eraseByKey
         {
             assertNotNull(permanentMapper.getByKey(key));
             assertEquals(Long.valueOf(1), permanentMapper.eraseByKey(key));
-            assertNull(permanentMapper.getByKey(key));
+            PermanentDO permanentDO = permanentMapper.getByKey(key);
+            log.info("permanentDO = {}", permanentDO);
+            assertNotNull(permanentDO.getDeletedAt());
         }
     }
 }

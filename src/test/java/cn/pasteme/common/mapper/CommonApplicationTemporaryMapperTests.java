@@ -1,12 +1,13 @@
-package cn.pasteme.common;
+package cn.pasteme.common.mapper;
 
 import cn.pasteme.common.entity.TemporaryDO;
-import cn.pasteme.common.mapper.TemporaryMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertNull;
 
 /**
  * @author Irene
- * @version 1.0.0
+ * @version 1.0.1
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -23,6 +24,8 @@ public class CommonApplicationTemporaryMapperTests {
     private TemporaryMapper temporaryMapper;
 
     @Test
+    @Transactional
+    @Rollback
     public void createTest(){
         String key = "sqy sb";
         Long count = temporaryMapper.countAll();
@@ -34,6 +37,7 @@ public class CommonApplicationTemporaryMapperTests {
             temporaryDO.setLang("plain");
             temporaryDO.setContent("sqy is sunny boy");
             temporaryDO.setClientIp("0.0.0.0");
+            temporaryDO.setPassword("password");
             assertEquals(Long.valueOf(1), temporaryMapper.create(temporaryDO));
 
             key = temporaryDO.getKey();

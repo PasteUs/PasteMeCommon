@@ -2,14 +2,13 @@ package cn.pasteme.common.manager;
 
 import cn.pasteme.common.dto.PasteRequestDTO;
 import cn.pasteme.common.dto.PasteResponseDTO;
-import cn.pasteme.common.entity.PasteDO;
 import cn.pasteme.common.utils.result.Response;
 
 /**
  * PermanentManager 和 TemporaryManager 的上层接口
  *
  * @author Lucien
- * @version 1.1.0
+ * @version 1.1.1
  */
 public interface PasteManager {
 
