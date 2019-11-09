@@ -5,16 +5,16 @@ import lombok.Getter;
 
 
 /**
- * @author 白振宇
+ * @author Lucien, 白振宇
  * @version 1.0.0
  */
 @Getter
 public class GlobalException extends RuntimeException {
 
-    private ResponseCode cm;
+    private ResponseCode responseCode;
 
-    public GlobalException(ResponseCode cm) {
-        super(cm.toString());
-        this.cm = cm;
+    public GlobalException(ResponseCode responseCode) {
+        super(responseCode.toString());
+        this.responseCode = responseCode;
     }
 }

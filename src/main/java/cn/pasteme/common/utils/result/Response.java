@@ -2,9 +2,11 @@ package cn.pasteme.common.utils.result;
 
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author Lucien, 白振宇
- * @version 1.0.1
+ * @version 1.0.2
  */
 @Getter
 public class Response<T> {
@@ -31,7 +33,7 @@ public class Response<T> {
      * @param <T>  泛型
      * @return 成功结果
      */
-    public static <T> Response<T> success(T data) {
+    public static <T> Response<T> success(@NotNull T data) {
         return new Response<>(data);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Lucien, 白振宇
- * @version 1.1.0
+ * @version 1.1.1
  */
 @Getter
 public enum ResponseCode {
@@ -32,7 +32,9 @@ public enum ResponseCode {
 
     UNAUTHORIZED(401, "Unauthorized"),
 
-    NOT_FOUND(404, "404 Not Found"),
+    FORBIDDEN(403, "Forbidden"),
+
+    NOT_FOUND(404, "Not Found"),
 
     METHOD_NOT_ALLOWED(405, "Method Not Allowed");
 

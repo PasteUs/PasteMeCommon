@@ -3,20 +3,22 @@ package cn.pasteme.common.mapper;
 import cn.pasteme.common.entity.PermanentDO;
 
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Options;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
- * @author Irene, 白振宇
- * @version 1.0.0
+ * @author Lucien, Irene, 白振宇
+ * @version 1.2.0
  */
-@Mapper
-@Component
+@Repository
 public interface PermanentMapper {
 
     /**
@@ -24,8 +26,18 @@ public interface PermanentMapper {
      * @param key 主键
      * @return PermanentDO
      */
-    @Select("SELECT * FROM `permanents` WHERE `key` = #{key} AND `deleted_at` IS NULL")
+    @Select("SELECT * FROM `permanents` WHERE `key` = #{key}")
+    @Results(id = "PermanentDO", value = {
+            @Result(property = "key", column = "key"),
+            @Result(property = "lang", column = "lang"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "clientIp", column = "client_ip"),
+            @Result(property = "createdAt", column = "created_at", javaType = Date.class),
+            @Result(property = "deletedAt", column = "deleted_at", javaType = Date.class)
+    })
     PermanentDO getByKey(@Valid @NotNull Long key);
+
 
     /**
      * 插入 permanentDO 新记录
@@ -44,4 +56,10 @@ public interface PermanentMapper {
      */
     @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
     Long eraseByKey(@Valid @NotNull Long key);
+
+    @Select("SELECT COUNT(1) FROM `permanents`")
+    Long countAll();
+
+    @Select("SELECT COUNT(1) FROM `permanents` WHERE `key` = #{key}")
+    Long countByKey(Long key);
 }
