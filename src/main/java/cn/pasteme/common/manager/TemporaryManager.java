@@ -2,7 +2,7 @@ package cn.pasteme.common.manager;
 
 /**
  * @author Lucien
- * @date 2019/10/01 12:35
+ * @version 1.0.0
  */
 public interface TemporaryManager extends PasteManager {
 }

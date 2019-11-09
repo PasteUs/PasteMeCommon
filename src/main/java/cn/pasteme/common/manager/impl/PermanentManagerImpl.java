@@ -5,12 +5,13 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.manager.PermanentManager;
 import cn.pasteme.common.mapper.PermanentMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.pasteme.common.utils.result.Response;
+import cn.pasteme.common.utils.result.ResponseCode;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Irene
- * @date 2019/10/05 01:28
+ * @author Lucien, Irene
+ * @version 1.2.1
  */
 @Service
 public class PermanentManagerImpl implements PermanentManager {
@@ -22,54 +23,53 @@ public class PermanentManagerImpl implements PermanentManager {
     }
 
     @Override
-    public String save(PasteRequestDTO pasteRequestDTO) {
+    public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setKey(Long.valueOf(pasteRequestDTO.getKey()));
         permanentDO.setLang(pasteRequestDTO.getLang());
         permanentDO.setContent(pasteRequestDTO.getContent());
         permanentDO.setPassword(pasteRequestDTO.getPassword());
         permanentDO.setClientIp(pasteRequestDTO.getClientIp());
         if (permanentMapper.create(permanentDO) == 1){
-            return String.valueOf(permanentDO.getKey());
+            return Response.success(String.valueOf(permanentDO.getKey()));
         } else {
-            return null;
+            return Response.error(ResponseCode.SERVER_ERROR);
         }
-
     }
 
     @Override
-    public PasteResponseDTO get(String key) {
+    public Response<PasteResponseDTO> get(String key) {
         PermanentDO permanentDO = permanentMapper.getByKey(Long.valueOf(key));
         if (permanentDO != null) {
-            if (permanentDO.getDeletedAt() != null) {
+            if (null == permanentDO.getDeletedAt()) {
                 PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
                 pasteResponseDTO.setLang(permanentDO.getLang());
                 pasteResponseDTO.setContent(permanentDO.getContent());
-                return pasteResponseDTO;
+                return Response.success(pasteResponseDTO);
             }
-        }
-        return null;
-    }
-
-    @Override
-    public Boolean erase(String key) {
-        if (permanentMapper.getByKey(Long.valueOf(key)) == null){
-            return false;
+            return Response.error(ResponseCode.FORBIDDEN);
         } else {
-            return permanentMapper.eraseByKey(Long.valueOf(key)) == 1;
+            return Response.error(ResponseCode.NOT_FOUND);
         }
     }
 
     @Override
-    public Integer status(String key) {
-        if (permanentMapper.getByKey(Long.valueOf(key)) == null) {
-            return 0;
-        } else {
-            if (permanentMapper.getByKey(Long.valueOf(key)).getDeletedAt() != null) {
-                return 1;
-            } else {
-                return 0;
-            }
+    public Response erase(String key) {
+        if (permanentMapper.countByKey(Long.valueOf(key)) == 0) {
+            return Response.error(ResponseCode.NOT_FOUND);
         }
+        if (permanentMapper.eraseByKey(Long.valueOf(key)) == 1) {
+            return Response.success();
+        }
+        return Response.error(ResponseCode.SERVER_ERROR);
+    }
+
+    @Override
+    public Response<Long> countAll() {
+        return Response.success(permanentMapper.countAll());
+    }
+
+    @Override
+    public Response<Long> getCurrentMaximumKey() {
+        return Response.success(countAll().getData() + 100 - 1);
     }
 }

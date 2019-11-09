@@ -5,38 +5,45 @@
     <parent>
         <groupId>cn.pasteme</groupId>
         <artifactId>pasteme-root</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <artifactId>pasteme-common</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <name>pasteme-common</name>
     <description>PasteMe Common</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>28.1-jre</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.61</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
     <repositories>
         <repository>
-            <id>github-repo</id>
-            <url>https://cdn.jsdelivr.net/gh/PasteUs/MavenRepository@latest</url>
+            <id>pasteus-github-mvn-repo</id>
+            <url>https://raw.githubusercontent.com/PasteUs/MavenRepository/master</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>

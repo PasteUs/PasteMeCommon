@@ -1,20 +1,20 @@
 package cn.pasteme.common.utils.exception;
 
-import cn.pasteme.common.utils.result.CodeMessage;
+import cn.pasteme.common.utils.result.ResponseCode;
 import lombok.Getter;
 
 
 /**
- * @author 白振宇
- * @date 2019/09/29 22:14
+ * @author Lucien, 白振宇
+ * @version 1.0.0
  */
 @Getter
 public class GlobalException extends RuntimeException {
 
-    private CodeMessage cm;
+    private ResponseCode responseCode;
 
-    public GlobalException(CodeMessage cm) {
-        super(cm.toString());
-        this.cm = cm;
+    public GlobalException(ResponseCode responseCode) {
+        super(responseCode.toString());
+        this.responseCode = responseCode;
     }
 }

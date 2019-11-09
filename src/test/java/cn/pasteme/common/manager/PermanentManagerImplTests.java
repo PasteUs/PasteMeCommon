@@ -1,57 +1,68 @@
 package cn.pasteme.common.manager;
 
-import cn.pasteme.common.mapper.PermanentMapper;
-import cn.pasteme.common.entity.PermanentDO;
-import cn.pasteme.common.manager.PermanentManager;
-
-import org.checkerframework.checker.units.qual.A;
-import org.junit.After;
-import org.junit.Assert;
+import cn.pasteme.common.dto.PasteRequestDTO;
+import cn.pasteme.common.dto.PasteResponseDTO;
+import cn.pasteme.common.utils.result.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
- * @author Irene
- * @date 2019/10/07 20:04
+ * @author Lucien, Irene
+ * @version 1.1.0
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class PermanentManagerImplTests {
+
     @Autowired
     PermanentManager permanentManager;
 
+    private PasteRequestDTO pasteRequestDTO = new PasteRequestDTO();
+
+    private PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
+
     @Before
-    public void beforeTest(){
+    public void before() {
+        pasteRequestDTO.setLang("plain");
+        pasteRequestDTO.setContent("Oct");
+        pasteRequestDTO.setPassword("holiday over");
+        pasteRequestDTO.setClientIp("0.0.0.0");
 
-    }
-
-    @After
-    public void afterTest(){
-
-    }
-
-    @Test
-    public void saveTest(){
-
+        BeanUtils.copyProperties(pasteRequestDTO, pasteResponseDTO);
     }
 
     @Test
-    public void getTest(){
+    public void main() {
+        String key;
+        Long count = permanentManager.countAll().getData();
 
-    }
+        // save
+        {
+            Response<String> stringResponse = permanentManager.save(pasteRequestDTO);
+            assertTrue(stringResponse.isSuccess());
 
-    @Test
-    public void eraseTest(){
+            key = stringResponse.getData();
+        }
 
-    }
+        assertEquals(Long.valueOf(count + 1), permanentManager.countAll().getData());
 
-    @Test
-    public void statusTest(){
+        // get
+        {
+            Response<PasteResponseDTO> pasteResponseDTOResponse = permanentManager.get(key);
 
+            assertTrue(pasteResponseDTOResponse.isSuccess());
+            assertEquals(pasteResponseDTO, pasteResponseDTOResponse.getData());
+        }
+
+        assertEquals(Long.valueOf(count + 1), permanentManager.countAll().getData());
     }
 }

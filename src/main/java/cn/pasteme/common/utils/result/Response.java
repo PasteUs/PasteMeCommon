@@ -2,9 +2,11 @@ package cn.pasteme.common.utils.result;
 
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * @author 白振宇
- * @date 2019/09/29 23:51
+ * @author Lucien, 白振宇
+ * @version 1.0.2
  */
 @Getter
 public class Response<T> {
@@ -31,19 +33,29 @@ public class Response<T> {
      * @param <T>  泛型
      * @return 成功结果
      */
-    public static <T> Response<T> success(T data) {
+    public static <T> Response<T> success(@NotNull T data) {
         return new Response<>(data);
+    }
+
+    /**
+     * 无参数的成功
+     * 有时候只是想返回一个 boolean，又希望出现错误时可以带上错误信息
+     *
+     * @return Response
+     */
+    public static Response success() {
+        return new Response<>();
     }
 
     /**
      * 失败时返回信息
      *
-     * @param codeMessage 错误代码
+     * @param responseCode 错误代码
      * @param <T> 泛型
      * @return 错误代码
      */
-    public static <T> Response<T> error(CodeMessage codeMessage) {
-        return new Response<>(codeMessage);
+    public static <T> Response<T> error(ResponseCode responseCode) {
+        return new Response<>(responseCode);
     }
 
     private Response(T data) {
@@ -52,17 +64,26 @@ public class Response<T> {
         this.data = data;
     }
 
-    private Response(CodeMessage codeMessage) {
-        if (codeMessage == null) {
+    private Response(ResponseCode responseCode) {
+        if (responseCode == null) {
             return;
         }
 
-        this.code = codeMessage.getCode();
-        this.message = codeMessage.getMessage();
+        this.code = responseCode.getCode();
+        this.message = responseCode.getMessage();
     }
 
-    public Response() {
+    private Response() {
+        this.code = 0;
+    }
 
+    /**
+     * isSuccess
+     *
+     * @return boolean
+     */
+    public boolean isSuccess() {
+        return this.code == 0;
     }
 
     /**
@@ -70,7 +91,6 @@ public class Response<T> {
      *
      * @return Response(code = ${code}, message = ${message}, data = ${data})
      */
-
     @Override
     public String toString() {
         return "Response(" +

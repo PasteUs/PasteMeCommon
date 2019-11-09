@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == 'PasteUs/PasteMeCommon'
 
     services:
       mysql:
@@ -33,5 +34,7 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
           GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
         run: |
-          echo -e "spring:\n  datasource:\n    url: jdbc:mysql://127.0.0.1:4399/pasteme\n    username: username\n    password: password" > src/main/resources/application.yml
-          mvn --settings settings.xml --file pom.xml deploy
+          echo "127.0.0.1 mysql" >> /etc/hosts
+          mvn --settings .github/settings.xml \
+              --file pom.xml \
+              deploy
