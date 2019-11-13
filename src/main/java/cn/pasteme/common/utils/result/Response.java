@@ -59,8 +59,7 @@ public class Response<T> {
     }
 
     private Response(T data) {
-        this.code = 0;
-        this.message = "success";
+        this();
         this.data = data;
     }
 
@@ -75,6 +74,7 @@ public class Response<T> {
 
     private Response() {
         this.code = 0;
+        this.message = "success";
     }
 
     /**
@@ -94,7 +94,7 @@ public class Response<T> {
     @Override
     public String toString() {
         return "Response(" +
-                "code = " + code + ", message = " + message + ", data = " +
+                "code=" + code + ", message=" + message + ", data=" +
                 (null == data ? "null" : data.toString()) + ")";
     }
 }
