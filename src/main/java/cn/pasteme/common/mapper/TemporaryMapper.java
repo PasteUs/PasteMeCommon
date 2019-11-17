@@ -25,7 +25,7 @@ public interface TemporaryMapper {
      * @param key key
      * @return TemporaryDO
      */
-    @Select("SELECT * FROM `temporaries` WHERE `key` = #{key}")
+    @Select("SELECT * FROM `pasteme_temporary` WHERE `key` = #{key}")
     @Results(id = "TemporaryDO", value = {
             @Result(property = "key", column = "key"),
             @Result(property = "lang", column = "lang"),
@@ -41,7 +41,7 @@ public interface TemporaryMapper {
      * @param temporaryDO 临时实体
      * @return key 主键
      */
-    @Insert("INSERT INTO `temporaries` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
+    @Insert("INSERT INTO `pasteme_temporary` (`key`, `lang`, `content`, `password`, `client_ip`, `created_at`) " +
             "VALUE (#{key}, #{lang}, #{content}, #{password}, #{clientIp}, now())")
     Long create(@Valid TemporaryDO temporaryDO);
 
@@ -50,12 +50,12 @@ public interface TemporaryMapper {
      * @param key 主键
      * @return 是否删除成功
      */
-    @Delete("DELETE FROM `temporaries` WHERE `key` = #{key}")
+    @Delete("DELETE FROM `pasteme_temporary` WHERE `key` = #{key}")
     Long eraseByKey(@Valid @NotBlank String key);
 
-    @Select("SELECT COUNT(1) FROM `temporaries`")
+    @Select("SELECT COUNT(1) FROM `pasteme_temporary`")
     Long countAll();
 
-    @Select("SELECT COUNT(1) FROM `temporaries` WHERE `key` = #{key}")
+    @Select("SELECT COUNT(1) FROM `pasteme_temporary` WHERE `key` = #{key}")
     Long countByKey(String key);
 }
