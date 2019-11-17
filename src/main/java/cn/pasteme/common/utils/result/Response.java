@@ -1,6 +1,7 @@
 package cn.pasteme.common.utils.result;
 
 import lombok.Getter;
+import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotNull;
 
@@ -58,9 +59,20 @@ public class Response<T> {
         return new Response<>(responseCode);
     }
 
+    public static <T> Response<T> error(Response response) {
+        return new Response<>(response);
+    }
+
     private Response(T data) {
         this();
         this.data = data;
+    }
+
+    private Response(Response response) {
+        Assert.isTrue(!response.isSuccess(), "Error response is required");
+        this.data = null;
+        this.code = response.code;
+        this.message = response.message;
     }
 
     private Response(ResponseCode responseCode) {
@@ -68,6 +80,7 @@ public class Response<T> {
             return;
         }
 
+        this.data = null;
         this.code = responseCode.getCode();
         this.message = responseCode.getMessage();
     }

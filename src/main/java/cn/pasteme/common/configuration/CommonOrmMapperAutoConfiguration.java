@@ -1,4 +1,4 @@
-package cn.pasteme.common;
+package cn.pasteme.common.configuration;
 
 import cn.pasteme.common.mapper.MybatisMapperBase;
 import org.mybatis.spring.annotation.MapperScan;
