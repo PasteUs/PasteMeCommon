@@ -8,18 +8,17 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * @author Lucien, 白振宇
- * @version 1.0.1
+ * @version 1.0.2
  */
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    Response exceptionHandler(HttpServletRequest request, Exception e) {
+    public static Response exceptionHandler(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
             return Response.error(ge.getResponseCode());
@@ -29,7 +28,6 @@ public class GlobalExceptionHandler {
             String msg = error.getDefaultMessage();
             return Response.error(ResponseCode.BIND_ERROR.fillArgs(msg));
         } else {
-            e.printStackTrace();
             return Response.error(ResponseCode.SERVER_ERROR);
         }
     }
