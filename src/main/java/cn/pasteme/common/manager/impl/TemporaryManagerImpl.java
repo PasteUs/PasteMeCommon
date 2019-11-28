@@ -5,7 +5,8 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.manager.TemporaryManager;
 import cn.pasteme.common.mapper.TemporaryMapper;
-import cn.pasteme.common.utils.BeansConverter;
+import cn.pasteme.common.utils.converter.DoToDtoConverter;
+import cn.pasteme.common.utils.converter.DtoToDoConverter;
 import cn.pasteme.common.utils.result.Response;
 import cn.pasteme.common.utils.result.ResponseCode;
 
@@ -30,7 +31,7 @@ public class TemporaryManagerImpl implements TemporaryManager {
     @Override
     public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         TemporaryDO temporaryDO = new TemporaryDO();
-        if (temporaryMapper.create(BeansConverter.dtoToDo(pasteRequestDTO, temporaryDO)) == 1){
+        if (temporaryMapper.create(DtoToDoConverter.convert(pasteRequestDTO, temporaryDO)) == 1){
             return Response.success(temporaryDO.getKey());
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
@@ -49,7 +50,7 @@ public class TemporaryManagerImpl implements TemporaryManager {
 
             PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
 
-            return Response.success(BeansConverter.doToDto(temporaryDO, pasteResponseDTO));
+            return Response.success(DoToDtoConverter.convert(temporaryDO, pasteResponseDTO));
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
         }

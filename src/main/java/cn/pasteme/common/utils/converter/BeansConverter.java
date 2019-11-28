@@ -1,4 +1,4 @@
-package cn.pasteme.common.utils;
+package cn.pasteme.common.utils.converter;
 
 import org.springframework.beans.BeanUtils;
 
@@ -9,16 +9,11 @@ import org.springframework.beans.BeanUtils;
  * e.g. 是否添加额外默认属性
  *
  * @author Moyu
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class BeansConverter {
 
-    public static <T, E> E dtoToDo(T source, E target, String... ignore) {
-        BeanUtils.copyProperties(source, target, ignore);
-        return target;
-    }
-
-    public static <T, E> E doToDto(T source, E target, String... ignore) {
+    protected static <T, E> E convert(T source, E target, String... ignore) {
         BeanUtils.copyProperties(source, target, ignore);
         return target;
     }
