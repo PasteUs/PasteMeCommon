@@ -6,6 +6,8 @@ package cn.pasteme.common.utils.converter;
  */
 public class DoToDtoConverter extends BeansConverter {
 
+    private DoToDtoConverter() {}
+
     public static <T, E> E convert(T source, E target, String... ignore) {
         return BeansConverter.convert(source, target, ignore);
     }

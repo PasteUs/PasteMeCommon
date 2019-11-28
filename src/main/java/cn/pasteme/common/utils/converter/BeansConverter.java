@@ -9,9 +9,11 @@ import org.springframework.beans.BeanUtils;
  * e.g. 是否添加额外默认属性
  *
  * @author Moyu
- * @version 1.1.0
+ * @version 1.1.1
  */
 public class BeansConverter {
+
+    protected BeansConverter() {}
 
     protected static <T, E> E convert(T source, E target, String... ignore) {
         BeanUtils.copyProperties(source, target, ignore);
