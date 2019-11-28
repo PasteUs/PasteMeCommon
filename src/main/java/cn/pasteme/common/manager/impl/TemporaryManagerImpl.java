@@ -12,6 +12,8 @@ import cn.pasteme.common.utils.result.ResponseCode;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Lucien, Irene, Moyu
@@ -39,33 +41,32 @@ public class TemporaryManagerImpl implements TemporaryManager {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Response<PasteResponseDTO> get(String key) {
         TemporaryDO temporaryDO = temporaryMapper.getByKey(key);
-        if (temporaryDO != null) {
-            Response response = erase(key);
-
-            if (!response.isSuccess()) {
-                log.error("Erase temporary after get failed, responseCode = ({}, {})", response.getCode(), response.getMessage());
-            }
-
-            PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
-
-            return Response.success(DoToDtoConverter.convert(temporaryDO, pasteResponseDTO));
-        } else {
+        if (temporaryDO == null) {
             return Response.error(ResponseCode.SERVER_ERROR);
         }
+        Response response = erase(key);
+
+        if (!response.isSuccess()) {
+            log.error("Erase temporary after get failed, responseCode = ({}, {})", response.getCode(), response.getMessage());
+        }
+
+        PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
+
+        return Response.success(DoToDtoConverter.convert(temporaryDO, pasteResponseDTO));
     }
 
     @Override
     public Response erase(String key) {
         if (temporaryMapper.countByKey(key) == 0) {
             return Response.error(ResponseCode.NOT_FOUND);
+        }
+        if (temporaryMapper.eraseByKey(key) == 1) {
+            return Response.success();
         } else {
-            if (temporaryMapper.eraseByKey(key) == 1) {
-                return Response.success();
-            } else {
-                return Response.error(ResponseCode.SERVER_ERROR);
-            }
+            return Response.error(ResponseCode.SERVER_ERROR);
         }
     }
 

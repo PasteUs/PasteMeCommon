@@ -5,8 +5,8 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 各种检查器
- * @author Lucien
- * @version 1.0.0
+ * @author Lucien, Moyu
+ * @version 1.0.1
  */
 @Service
 public class Checker {
@@ -15,6 +15,6 @@ public class Checker {
     }
 
     public Boolean containAlpha(@NotBlank String key) {
-        return key.matches("[a-zA-Z]");
+        return key.matches(".*[a-zA-Z]+.*");
     }
 }
