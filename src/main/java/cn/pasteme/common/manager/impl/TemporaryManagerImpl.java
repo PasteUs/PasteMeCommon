@@ -5,6 +5,8 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.TemporaryDO;
 import cn.pasteme.common.manager.TemporaryManager;
 import cn.pasteme.common.mapper.TemporaryMapper;
+import cn.pasteme.common.utils.converter.DoToDtoConverter;
+import cn.pasteme.common.utils.converter.DtoToDoConverter;
 import cn.pasteme.common.utils.result.Response;
 import cn.pasteme.common.utils.result.ResponseCode;
 
@@ -12,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Lucien, Irene
- * @version 1.2.0
+ * @author Lucien, Irene, Moyu
+ * @version 1.3.0
  */
 
 @Slf4j
@@ -29,12 +31,7 @@ public class TemporaryManagerImpl implements TemporaryManager {
     @Override
     public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         TemporaryDO temporaryDO = new TemporaryDO();
-        temporaryDO.setKey(pasteRequestDTO.getKey());
-        temporaryDO.setContent(pasteRequestDTO.getContent());
-        temporaryDO.setLang(pasteRequestDTO.getLang());
-        temporaryDO.setClientIp(pasteRequestDTO.getClientIp());
-        temporaryDO.setPassword(pasteRequestDTO.getPassword());
-        if (temporaryMapper.create(temporaryDO) == 1){
+        if (temporaryMapper.create(DtoToDoConverter.convert(pasteRequestDTO, temporaryDO)) == 1){
             return Response.success(temporaryDO.getKey());
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
@@ -45,17 +42,15 @@ public class TemporaryManagerImpl implements TemporaryManager {
     public Response<PasteResponseDTO> get(String key) {
         TemporaryDO temporaryDO = temporaryMapper.getByKey(key);
         if (temporaryDO != null) {
-            PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
-            pasteResponseDTO.setContent(temporaryDO.getContent());
-            pasteResponseDTO.setLang(temporaryDO.getLang());
-
             Response response = erase(key);
 
             if (!response.isSuccess()) {
                 log.error("Erase temporary after get failed, responseCode = ({}, {})", response.getCode(), response.getMessage());
             }
 
-            return Response.success(pasteResponseDTO);
+            PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
+
+            return Response.success(DoToDtoConverter.convert(temporaryDO, pasteResponseDTO));
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
         }

@@ -16,7 +16,7 @@ import java.util.Date;
 
 /**
  * @author Lucien, Irene, 白振宇
- * @version 1.2.0
+ * @version 1.2.1
  */
 @Repository
 public interface PermanentMapper {
@@ -57,9 +57,25 @@ public interface PermanentMapper {
     @Update("UPDATE `pasteme_permanent` SET `deleted_at` = now() WHERE `key`= #{key}")
     Long eraseByKey(@Valid @NotNull Long key);
 
+    /**
+     * permanent 表记录数
+     * @return 数量
+     */
     @Select("SELECT COUNT(1) FROM `pasteme_permanent`")
     Long countAll();
 
+    /**
+     * 该 key 对应的记录数(0 or 1)
+     * @param key 主键
+     * @return 数量
+     */
     @Select("SELECT COUNT(1) FROM `pasteme_permanent` WHERE `key` = #{key}")
     Long countByKey(Long key);
+
+    /**
+     * 获取当前最大 key 值
+     * @return 主键值
+     */
+    @Select("SELECT MAX(`key`) FROM `pasteme_permanent`")
+    Long getMaxKey();
 }
