@@ -5,13 +5,14 @@ import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PermanentDO;
 import cn.pasteme.common.manager.PermanentManager;
 import cn.pasteme.common.mapper.PermanentMapper;
+import cn.pasteme.common.utils.BeansConverter;
 import cn.pasteme.common.utils.result.Response;
 import cn.pasteme.common.utils.result.ResponseCode;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Lucien, Irene
- * @version 1.2.1
+ * @author Lucien, Irene, Moyu
+ * @version 1.3.1
  */
 @Service
 public class PermanentManagerImpl implements PermanentManager {
@@ -25,11 +26,7 @@ public class PermanentManagerImpl implements PermanentManager {
     @Override
     public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         PermanentDO permanentDO = new PermanentDO();
-        permanentDO.setLang(pasteRequestDTO.getLang());
-        permanentDO.setContent(pasteRequestDTO.getContent());
-        permanentDO.setPassword(pasteRequestDTO.getPassword());
-        permanentDO.setClientIp(pasteRequestDTO.getClientIp());
-        if (permanentMapper.create(permanentDO) == 1){
+        if (permanentMapper.create(BeansConverter.dtoToDo(pasteRequestDTO, permanentDO, "key")) == 1){
             return Response.success(String.valueOf(permanentDO.getKey()));
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
@@ -39,16 +36,13 @@ public class PermanentManagerImpl implements PermanentManager {
     @Override
     public Response<PasteResponseDTO> get(String key) {
         PermanentDO permanentDO = permanentMapper.getByKey(Long.valueOf(key));
-        if (permanentDO != null) {
-            if (null == permanentDO.getDeletedAt()) {
-                PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
-                pasteResponseDTO.setLang(permanentDO.getLang());
-                pasteResponseDTO.setContent(permanentDO.getContent());
-                return Response.success(pasteResponseDTO);
-            }
+        if (permanentDO == null) {
+            return Response.error(ResponseCode.NOT_FOUND);
+        } else if (permanentDO.getDeletedAt() != null) {
             return Response.error(ResponseCode.FORBIDDEN);
         } else {
-            return Response.error(ResponseCode.NOT_FOUND);
+            PasteResponseDTO pasteResponseDTO = new PasteResponseDTO();
+            return Response.success(BeansConverter.doToDto(permanentDO, pasteResponseDTO));
         }
     }
 
@@ -70,6 +64,6 @@ public class PermanentManagerImpl implements PermanentManager {
 
     @Override
     public Response<Long> getCurrentMaximumKey() {
-        return Response.success(countAll().getData() + 100 - 1);
+        return Response.success(permanentMapper.getMaxKey());
     }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
 
 /**
  * @author Lucien, Irene, 白振宇
- * @version 1.1.0
+ * @version 1.1.1
  */
 @Repository
 public interface TemporaryMapper {
@@ -53,9 +53,18 @@ public interface TemporaryMapper {
     @Delete("DELETE FROM `pasteme_temporary` WHERE `key` = #{key}")
     Long eraseByKey(@Valid @NotBlank String key);
 
+    /**
+     * temporary 表记录数
+     * @return 数量
+     */
     @Select("SELECT COUNT(1) FROM `pasteme_temporary`")
     Long countAll();
 
+    /**
+     * 该 key 对应的记录数(0 or 1)
+     * @param key 主键
+     * @return 数量
+     */
     @Select("SELECT COUNT(1) FROM `pasteme_temporary` WHERE `key` = #{key}")
     Long countByKey(String key);
 }
