@@ -7,8 +7,8 @@ import cn.pasteme.common.utils.result.Response;
 /**
  * PermanentManager 和 TemporaryManager 的上层接口
  *
- * @author Lucien
- * @version 1.1.1
+ * @author Lucien, Moyu
+ * @version 1.1.2
  */
 public interface PasteManager {
 
@@ -43,4 +43,12 @@ public interface PasteManager {
      * @return 数量
      */
     Response<Long> countAll();
+
+    /**
+     * 该 key 对应的记录数(0 or 1)
+     *
+     * @param key 主键
+     * @return 数量
+     */
+    Response<Long> countByKey(String key);
 }

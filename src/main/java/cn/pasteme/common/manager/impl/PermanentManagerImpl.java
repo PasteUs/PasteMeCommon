@@ -3,6 +3,7 @@ package cn.pasteme.common.manager.impl;
 import cn.pasteme.common.dto.PasteRequestDTO;
 import cn.pasteme.common.dto.PasteResponseDTO;
 import cn.pasteme.common.entity.PermanentDO;
+import cn.pasteme.common.enumeration.FieldEnum;
 import cn.pasteme.common.manager.PermanentManager;
 import cn.pasteme.common.mapper.PermanentMapper;
 import cn.pasteme.common.utils.converter.DoToDtoConverter;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Lucien, Irene, Moyu
- * @version 1.3.1
+ * @version 1.3.2
  */
 @Service
 public class PermanentManagerImpl implements PermanentManager {
@@ -27,7 +28,7 @@ public class PermanentManagerImpl implements PermanentManager {
     @Override
     public Response<String> save(PasteRequestDTO pasteRequestDTO) {
         PermanentDO permanentDO = new PermanentDO();
-        if (permanentMapper.create(DtoToDoConverter.convert(pasteRequestDTO, permanentDO, "key")) == 1){
+        if (permanentMapper.create(DtoToDoConverter.convert(pasteRequestDTO, permanentDO, FieldEnum.FIELD_KEY.getName())) == 1){
             return Response.success(String.valueOf(permanentDO.getKey()));
         } else {
             return Response.error(ResponseCode.SERVER_ERROR);
@@ -61,6 +62,11 @@ public class PermanentManagerImpl implements PermanentManager {
     @Override
     public Response<Long> countAll() {
         return Response.success(permanentMapper.countAll());
+    }
+
+    @Override
+    public Response<Long> countByKey(String key) {
+        return Response.success(permanentMapper.countByKey(Long.valueOf(key)));
     }
 
     @Override
