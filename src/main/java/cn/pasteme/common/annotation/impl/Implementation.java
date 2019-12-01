@@ -3,7 +3,6 @@ package cn.pasteme.common.annotation.impl;
 import cn.pasteme.common.annotation.ErrorLogging;
 import cn.pasteme.common.annotation.RequestLogging;
 import cn.pasteme.common.annotation.Timer;
-import cn.pasteme.common.utils.exception.GlobalExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Lucien, Ryan Lee, Moyu
- * @version 1.0.3
+ * @version 1.0.4
  */
 @Slf4j
 @Aspect
@@ -57,7 +56,7 @@ public class Implementation {
         } catch (Exception e) {
             log.error("ErrorLog: [{}@{}({})], Exception: ", clazzName, methodName, proceedingJoinPoint.getArgs(), e);
             if (clazz.isAnnotationPresent(RestController.class) || clazz.isAnnotationPresent(Controller.class)) {
-                return GlobalExceptionHandler.exceptionHandler(e);
+                throw e;
             }
         }
         return response;
