@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Lucien, Irene, Moyu
- * @version 1.3.0
+ * @version 1.3.1
  */
 
 @Slf4j
@@ -73,5 +73,10 @@ public class TemporaryManagerImpl implements TemporaryManager {
     @Override
     public Response<Long> countAll() {
         return Response.success(temporaryMapper.countAll());
+    }
+
+    @Override
+    public Response<Long> countByKey(String key) {
+        return Response.success(temporaryMapper.countByKey(key));
     }
 }
