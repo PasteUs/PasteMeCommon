@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class PermanentManagerImplTests {
 
     @Autowired
-    PermanentManager permanentManager;
+    private PermanentManager permanentManager;
 
     private PasteRequestDTO pasteRequestDTO = new PasteRequestDTO();
 

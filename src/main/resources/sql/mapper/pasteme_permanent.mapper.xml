@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pasteme.common.mapper.PermanentMapper">
+
+    <resultMap id="permanentDO" type="cn.pasteme.common.entity.PermanentDO">
+        <id column="key" property="key"/>
+        <result column="lang" property="lang"/>
+        <result column="content" property="content"/>
+        <result column="password" property="password"/>
+        <result column="client_ip" property="clientIp"/>
+        <result column="created_at" property="createdAt" javaType="java.util.Date"/>
+        <result column="deleted_at" property="deletedAt" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="getByKey" resultMap="permanentDO">
+        SELECT * FROM `pasteme_permanent` WHERE `key` = #{key}
+    </select>
+
+    <insert id="create" parameterType="cn.pasteme.common.entity.PermanentDO"
+            keyColumn="key" keyProperty="key" useGeneratedKeys="true">
+        INSERT INTO `pasteme_permanent` (
+            `lang`,
+            `content`,
+            `password`,
+            `client_ip`,
+            `created_at`
+        ) VALUE (
+            #{lang},
+            #{content},
+            #{password},
+            #{clientIp},
+            now()
+        )
+    </insert>
+
+</mapper>
