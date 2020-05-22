@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:4399/pasteme
-    username: username
-    password: password
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:4399/pasteme
+      username: username
+      password: password
     schema:
       - classpath:sql/init/*.sql
 
