@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `pasteme_permanent`
+CREATE TABLE IF NOT EXISTS `permanents`
 (
     `key`        BIGINT UNSIGNED NOT NULL COMMENT '主键' AUTO_INCREMENT PRIMARY KEY,
     `lang`       VARCHAR(16)     NOT NULL COMMENT '高亮类型',

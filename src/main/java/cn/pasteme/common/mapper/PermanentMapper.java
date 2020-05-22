@@ -36,14 +36,14 @@ public interface PermanentMapper {
      * @param key 主键
      * @return 是否删除成功
      */
-    @Update("UPDATE `pasteme_permanent` SET `deleted_at` = now() WHERE `key`= #{key}")
+    @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
     Long eraseByKey(@Valid @NotNull Long key);
 
     /**
      * permanent 表记录数
      * @return 数量
      */
-    @Select("SELECT COUNT(1) FROM `pasteme_permanent`")
+    @Select("SELECT COUNT(1) FROM `permanents`")
     Long countAll();
 
     /**
@@ -51,13 +51,13 @@ public interface PermanentMapper {
      * @param key 主键
      * @return 数量
      */
-    @Select("SELECT COUNT(1) FROM `pasteme_permanent` WHERE `key` = #{key}")
+    @Select("SELECT COUNT(1) FROM `permanents` WHERE `key` = #{key}")
     Long countByKey(Long key);
 
     /**
      * 获取当前最大 key 值
      * @return 主键值
      */
-    @Select("SELECT MAX(`key`) FROM `pasteme_permanent`")
+    @Select("SELECT MAX(`key`) FROM `permanents`")
     Long getMaxKey();
 }
