@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `pasteme_temporary`
+CREATE TABLE IF NOT EXISTS `temporaries`
 (
     `key`        VARCHAR(16) NOT NULL COMMENT '主键' PRIMARY KEY,
     `lang`       VARCHAR(16) NOT NULL COMMENT '高亮类型',
