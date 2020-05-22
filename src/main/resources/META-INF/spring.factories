@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.pasteme.common.configuration.CommonOrmMapperAutoConfiguration
+  cn.pasteme.common.configuration.DataSourceConfig,\
+  cn.pasteme.common.configuration.MapperConfiguration

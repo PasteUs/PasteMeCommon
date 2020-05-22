@@ -10,12 +10,14 @@ import cn.pasteme.common.utils.converter.DoToDtoConverter;
 import cn.pasteme.common.utils.converter.DtoToDoConverter;
 import cn.pasteme.common.utils.result.Response;
 import cn.pasteme.common.utils.result.ResponseCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Lucien, Irene, Moyu
  * @version 1.3.2
  */
+@Slf4j
 @Service
 public class PermanentManagerImpl implements PermanentManager {
 
