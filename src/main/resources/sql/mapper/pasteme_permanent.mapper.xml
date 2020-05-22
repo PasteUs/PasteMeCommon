@@ -13,12 +13,12 @@
     </resultMap>
 
     <select id="getByKey" resultMap="permanentDO">
-        SELECT * FROM `pasteme_permanent` WHERE `key` = #{key}
+        SELECT * FROM `permanents` WHERE `key` = #{key}
     </select>
 
     <insert id="create" parameterType="cn.pasteme.common.entity.PermanentDO"
             keyColumn="key" keyProperty="key" useGeneratedKeys="true">
-        INSERT INTO `pasteme_permanent` (
+        INSERT INTO `permanents` (
             `lang`,
             `content`,
             `password`,
