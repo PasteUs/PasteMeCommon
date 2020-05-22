@@ -26,7 +26,7 @@ public interface PermanentMapper {
      * @param key 主键
      * @return PermanentDO
      */
-    @Select("SELECT * FROM `pasteme_permanent` WHERE `key` = #{key}")
+    @Select("SELECT * FROM `permanents` WHERE `key` = #{key}")
     @Results(id = "PermanentDO", value = {
             @Result(property = "key", column = "key"),
             @Result(property = "lang", column = "lang"),
@@ -44,7 +44,7 @@ public interface PermanentMapper {
      * @param permanentDO 永久实体
      * @return key 主键
      */
-    @Insert("INSERT INTO `pasteme_permanent` (`lang`, `content`, `password`, `client_ip`, `created_at`) " +
+    @Insert("INSERT INTO `permanents` (`lang`, `content`, `password`, `client_ip`, `created_at`) " +
             "VALUE (#{lang}, #{content}, #{password}, #{clientIp}, now())")
     @Options(useGeneratedKeys = true, keyProperty = "key", keyColumn = "key")
     Long create(@Valid PermanentDO permanentDO);
@@ -54,14 +54,14 @@ public interface PermanentMapper {
      * @param key 主键
      * @return 是否删除成功
      */
-    @Update("UPDATE `pasteme_permanent` SET `deleted_at` = now() WHERE `key`= #{key}")
+    @Update("UPDATE `permanents` SET `deleted_at` = now() WHERE `key`= #{key}")
     Long eraseByKey(@Valid @NotNull Long key);
 
     /**
      * permanent 表记录数
      * @return 数量
      */
-    @Select("SELECT COUNT(1) FROM `pasteme_permanent`")
+    @Select("SELECT COUNT(1) FROM `permanents`")
     Long countAll();
 
     /**
@@ -69,13 +69,13 @@ public interface PermanentMapper {
      * @param key 主键
      * @return 数量
      */
-    @Select("SELECT COUNT(1) FROM `pasteme_permanent` WHERE `key` = #{key}")
+    @Select("SELECT COUNT(1) FROM `permanents` WHERE `key` = #{key}")
     Long countByKey(Long key);
 
     /**
      * 获取当前最大 key 值
      * @return 主键值
      */
-    @Select("SELECT MAX(`key`) FROM `pasteme_permanent`")
+    @Select("SELECT MAX(`key`) FROM `permanents`")
     Long getMaxKey();
 }
