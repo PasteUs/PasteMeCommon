@@ -8,28 +8,26 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * @author Lucien, 白振宇
- * @version 1.0.1
+ * @version 1.0.2
  */
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    Response exceptionHandler(HttpServletRequest request, Exception e) {
+    public static Response exceptionHandler(Exception e) {
         if (e instanceof GlobalException) {
             GlobalException ge = (GlobalException) e;
-            return Response.error(ge.getCm());
+            return Response.error(ge.getResponseCode());
         } else if (e instanceof org.springframework.validation.BindException) {
             List<ObjectError> errors = ((BindException) e).getAllErrors();
             ObjectError error = errors.get(0);
             String msg = error.getDefaultMessage();
             return Response.error(ResponseCode.BIND_ERROR.fillArgs(msg));
         } else {
-            e.printStackTrace();
             return Response.error(ResponseCode.SERVER_ERROR);
         }
     }

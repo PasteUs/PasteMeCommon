@@ -1,10 +1,13 @@
 package cn.pasteme.common.utils.result;
 
 import lombok.Getter;
+import org.springframework.util.Assert;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Lucien, 白振宇
- * @version 1.0.1
+ * @version 1.0.2
  */
 @Getter
 public class Response<T> {
@@ -31,7 +34,7 @@ public class Response<T> {
      * @param <T>  泛型
      * @return 成功结果
      */
-    public static <T> Response<T> success(T data) {
+    public static <T> Response<T> success(@NotNull T data) {
         return new Response<>(data);
     }
 
@@ -56,10 +59,20 @@ public class Response<T> {
         return new Response<>(responseCode);
     }
 
+    public static <T> Response<T> error(Response response) {
+        return new Response<>(response);
+    }
+
     private Response(T data) {
-        this.code = 0;
-        this.message = "success";
+        this();
         this.data = data;
+    }
+
+    private Response(Response response) {
+        Assert.isTrue(!response.isSuccess(), "Error response is required");
+        this.data = null;
+        this.code = response.code;
+        this.message = response.message;
     }
 
     private Response(ResponseCode responseCode) {
@@ -67,12 +80,14 @@ public class Response<T> {
             return;
         }
 
+        this.data = null;
         this.code = responseCode.getCode();
         this.message = responseCode.getMessage();
     }
 
     private Response() {
         this.code = 0;
+        this.message = "success";
     }
 
     /**
@@ -92,7 +107,7 @@ public class Response<T> {
     @Override
     public String toString() {
         return "Response(" +
-                "code = " + code + ", message = " + message + ", data = " +
+                "code=" + code + ", message=" + message + ", data=" +
                 (null == data ? "null" : data.toString()) + ")";
     }
 }

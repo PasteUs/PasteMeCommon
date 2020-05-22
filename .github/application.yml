@@ -1,5 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:4399/pasteme
+    url: jdbc:mysql://localhost:4399/pasteme
     username: username
     password: password
+    schema:
+      - classpath:sql/init/*.sql
+
+    initialization-mode: always
